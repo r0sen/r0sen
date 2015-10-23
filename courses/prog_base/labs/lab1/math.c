@@ -1,9 +1,21 @@
-
 #include <math.h>
 
 
 double calc(double x, double y, double z) {
-   double a;
-   a = (pow(x, y + 1)) / pow(x - y, (1 / z)) + y / 4 * abs(x + y) + pow(abs((cos(y) / sin(x)) + 1), 0.5);
+   double a, a0, a1, a2;
+   if ((x-y==0) || (z==0))
+    return (NAN);
+   if ((x-y!=0) && (z!=0))
+     a0 = (pow(x, y + 1)) / pow(x - y, (1 / z));
+
+   if ((x+y==0))
+    return(NAN);
+   if ((x+y!=0))
+    a1= y / 4 * abs(x + y);
+   if (sin(x)==0)
+     return (NAN);
+   if (sin(x)!=0)
+        a2 = pow(abs((cos(y) / sin(x)) + 1), 0.5);
+    a = a0 +a1 +a2;
    return a;
 }
