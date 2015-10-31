@@ -4,8 +4,11 @@
 int satisfies(int, int, int);
 
 int main() {
-   int aval = 0, bval = 4, cval = 4;
+   int aval = 5, bval = -21332, cval = 4;
    int resultVal;
+
+   int u = (9, 23);
+   printf("u = %i;", u);
 
    resultVal = satisfies(aval, bval, cval);
 
@@ -15,7 +18,7 @@ int main() {
 // copy the code below to the answers files and add #include <math.h> at the beginning
 int satisfies(int a, int b, int c)
 {
-    int signed result, modmin, max, min, sum2;
+    int signed result, modmin, max, min, sum2, g;
 
 
     if (a<0 && b<0 && c<0)
@@ -33,7 +36,7 @@ int satisfies(int a, int b, int c)
     {
         sum2 = b+a;
     }
-    if ( (sum2 <=-256) & (modmin > 0) && ((a &(a - 1)) == 0))
+    if ( (sum2 <=-256) & (modmin > 0) && ((log2 (a) == g)))
     {
         result = 1;
     }
