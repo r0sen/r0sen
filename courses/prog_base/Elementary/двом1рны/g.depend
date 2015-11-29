@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1448277606 source:c:\users\denis\desktop\project\elementary\g\main.c
+	<math.h>
+	<time.h>
+	<stdio.h>
+	<stdlib.h>
+
