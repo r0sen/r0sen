@@ -151,15 +151,19 @@ strcat(mas,tmp3);
 // Заданий масив символів і окремий символ. Визначити чи міститься хоча б раз окремий символ у масиві символів
 char mas2='o';
 int c = 0;
-for (i=1;i<strlen(mas);i++){
+for (i=0;i<strlen(mas);i++){
 if(mas[i]==mas2)
     {printf("YEAH");
     break;
     }
-c++;
+else {
+        c++;
+}
 
 }
-if (c==(strlen(mas)-1))
+if (c==(strlen(mas)))
     printf("NO!");
+
+
 return 0;
 }
