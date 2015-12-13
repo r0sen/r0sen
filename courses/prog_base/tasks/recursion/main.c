@@ -3,14 +3,13 @@
 
 int req1(int i, const char sValue[])
 {
-
     if (i==strlen(sValue)){
         return 0;
     }
 
     int number = (int)sValue[i];
     if (( number>=48) && (number <=57)){
-        return number;
+        return sValue[i] - '0';
     }
 
     else{
@@ -24,7 +23,7 @@ int req2(int i, const char sValue[])
 
     int number = (int)sValue[i];
     if (( number>=48) && (number <=57)){
-        return number;
+        return sValue[i] - '0';
     }
 
     else{
