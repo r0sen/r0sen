@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1449070135 source:c:\users\denis\desktop\project\elementary\довільні масиви\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
