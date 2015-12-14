@@ -21,7 +21,7 @@ void rotateCCW90(int mat[4][4])
     for(i=0; i<4; i++)
         for(j=0; j<4; j++)
         {
-            mat2[i][j]=mat[j][3-i];
+            mat2[i][j]=mat[j][3-i];//
         }
 }
 void flipV(int mat[4][4])
