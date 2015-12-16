@@ -1,44 +1,77 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
 #include <time.h>
-#include <math.h>
-int mat2[4][4];
+
 void fillRand(int mat[4][4])
 {
-    time_t t;
-    srand((unsigned) time(&t));
-    int i,j;
-    for(i=0; i<4; i++)
-        for(j=0; j<4; j++)
+    int i, j, num;
+    for (i=0; i<4; i++)
+    {
+        for (j=0; j<4; j++)
         {
-            mat[i][j]=rand() % 1999 -999;
+            mat[i][j] = rand()%1999 - 999;
         }
+    }
 }
-void rotateCCW90(int mat[4][4])
+
+void rotateCW180(int mat[4][4])
 {
-    int i,j,k,r,temp;
-    int *p;
-    for(i=0; i<4; i++)
-        for(j=0; j<4; j++)
+    int matrix2[4][4];
+    int i,j;
+    for (i = 0; i<4; i++)
+    {
+        for (j=0; j<4; j++)
         {
-            mat2[i][j]=mat[j][3-i];//
+            matrix2[3-i][3-j] = mat[i][j];
         }
+    }
+
+    for (i = 0; i<4; i++)
+    {
+        for (j=0; j<4; j++)
+        {
+            mat[i][j] = matrix2[i][j];
+        }
+    }
 }
+
 void flipV(int mat[4][4])
 {
-    int i,j;
-    for (i=0; i<4; i++)
-        for(j=0; j<4; j++)
+    int matrix2[4][4];
+    int i,j,Y;
+    for (Y = 0; Y<4; Y++)
+    {
+        for (i=0, j=3; i<4, j>=0; i++, j--)
         {
-            mat2[i][j]=mat[3-i][j];
+            matrix2[i][Y] = mat[j][Y];
         }
+    }
+
+    for (i=0; i<4; i++)
+    {
+        for (j=0; j<4; j++)
+        {
+            mat[i][j] = matrix2[i][j];
+        }
+    }
 }
+
 void transposSide(int mat[4][4])
 {
+    int matrix2[4][4];
     int i,j;
     for (i=0; i<4; i++)
-        for(j=0; j<4; j++)
+    {
+        for (j=0; j<4;j++)
         {
-            mat2[i][j]=mat[3-j][3-i];
+            matrix2[3-j][3-i] = mat[i][j];
         }
+    }
+    for (i=0; i<4; i++)
+    {
+        for (j=0; j<4;j++)
+        {
+            mat[i][j] = matrix2[i][j];
+        }
+    }
 }
