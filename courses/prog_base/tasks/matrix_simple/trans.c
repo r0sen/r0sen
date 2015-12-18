@@ -14,18 +14,18 @@ void fillRand(int mat[4][4])
     }
 }
 
-void rotateCW180(int mat[4][4])
+void rotateCCW90(int mat[4][4])
 {
     int matrix2[4][4];
-    int i,j;
-    for (i = 0; i<4; i++)
+    int i,j,Y;
+
+    for (Y = 0; Y<4; Y++)
     {
-        for (j=0; j<4; j++)
+        for (i=0, j=3; i<4, j>=0; i++, j--)
         {
-            matrix2[3-i][3-j] = mat[i][j];
+            matrix2[j][Y] = mat[Y][i];
         }
     }
-
     for (i = 0; i<4; i++)
     {
         for (j=0; j<4; j++)
