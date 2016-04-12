@@ -1,0 +1,23 @@
+[
+      {
+        "name": "Key",
+        "surname": "Dach",
+        "birthday": "1998-01-03",
+        "salary": "131313.13",
+        "cashboxID": "8"
+      },
+      {
+        "name": "Eddie",
+        "surname": "Poe",
+        "birthday": "1978-02-16",
+        "salary": "12824.7",
+        "cashboxID": "3"
+      },
+      {
+        "name": "Helly",
+        "surname": "Bells",
+        "birthday": "1943-11-15",
+        "salary": "66666.6",
+        "cashboxID": "6"
+      }
+    ]
