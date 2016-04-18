@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cashiers>
-	<cashier>
-		<name>Key</name>
-		<surname>Dach</surname>
+	<cashier
+		name = "Key"
+		surname = "Dach">
 		<birthday>1998-01-03</birthday>
 		<salary>131313.13</salary>
 		<cashboxID>8</cashboxID>
 	</cashier>
-	<cashier>
-		<name>Eddie</name>
-		<surname>Poe</surname>
+	<cashier
+		name = "Eddie"
+		surname = "Poe">
 		<birthday>1978-02-16</birthday>
 		<salary>12824.7</salary>
 		<cashboxID>3</cashboxID>
 	</cashier>
-	<cashier>
-		<name>Helly</name>
-		<surname>Bells</surname>
+	<cashier
+		name = "Helly"
+		surname = "Balls">
 		<birthday>1943-11-15</birthday>
 		<salary>66666.6</salary>
 		<cashboxID>6</cashboxID>
