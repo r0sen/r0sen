@@ -1,0 +1,77 @@
+# depslib dependency file v1.0
+1459591656 source:c:\repository\repos1\courses\prog_base_2\labs\lab1\folder.c
+	"folder.h"
+	"file.h"
+
+1459549053 c:\repository\repos1\courses\prog_base_2\labs\lab1\folder.h
+	<stdlib.h>
+	"file.h"
+
+1459591935 source:c:\repository\repos1\courses\prog_base_2\labs\lab1\main.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"folder.h"
+	"file.h"
+	"glossary.h"
+
+1459591239 c:\repository\repos1\courses\prog_base_2\labs\lab1\file.h
+	<strings.h>
+	<stdlib.h>
+	"folder.h"
+
+1459591254 source:c:\repository\repos1\courses\prog_base_2\labs\lab1\file.c
+	"file.h"
+	"folder.h"
+
+1424096216 c:\program files (x86)\cmocka\include\cmocka.h
+
+1459552937 source:c:\repository\repos1\courses\prog_base_2\labs\lab1\glossary.c
+	"glossary.h"
+
+1459551762 c:\repository\repos1\courses\prog_base_2\labs\lab1\glossary.h
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	"folder.h"
+	"file.h"
+
+1460997612 source:c:\users\Администратор\desktop\ОП\lab1\file.c
+	"file.h"
+	"folder.h"
+
+1460997604 c:\users\Администратор\desktop\ОП\lab1\file.h
+	<strings.h>
+	<stdlib.h>
+	"folder.h"
+
+1460995814 c:\users\Администратор\desktop\ОП\lab1\folder.h
+	<stdlib.h>
+	"file.h"
+
+1460997606 source:c:\users\Администратор\desktop\ОП\lab1\folder.c
+	"folder.h"
+	"file.h"
+
+1460997928 source:c:\users\Администратор\desktop\ОП\lab1\glossary.c
+	"glossary.h"
+
+1460997924 c:\users\Администратор\desktop\ОП\lab1\glossary.h
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	"folder.h"
+	"file.h"
+
+1460997610 source:c:\users\Администратор\desktop\ОП\lab1\main.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"folder.h"
+	"file.h"
+	"glossary.h"
+
