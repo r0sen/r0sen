@@ -57,49 +57,69 @@ void method_list(char * list, char * buffer_p){
     return;
 }
 
-int method_getMaxCount(char * list, int size, char *sumLine){
-    int max;
+void method_getMaxCount(char * list, int size, char *sumLine){
+    int max = -1;
  
  int i,j,k,h=0,s=0,t=0,f=0;
     char str[100];
     char delete[] = " ";
 	char names[100][100];
+	
+	int filled = -1;
+	for (i = 0; i < 100; i++)
+	{
+		for (j = 0; j < 100; j++)
+		{
+			names[i][j] = '-';
+		}
+	}
 	char name [100];
 	int counter[100];
-	int pos = 0;
-    //char * p = strtok(list, delete);
+	for (j = 0; j < 100; j++)
+		counter[j] = 0;
 int first,last;
-   for (i=0;i<size;i++)
+
+i = 0;
+   while(i < size)
    {
-	 if (list[i]==' ')   
-	 {
-		 pos = 0;
-		 first = i;
-		 for(j=i+1;j<size;j++)
-		 {
-			 if ((list[j]==' ')&&(pos=0))
-			 {
-				 pos=1;
-				 last=j;
-				 for (k=first;k<=last;k++)
-				 {
-					 name[h]=list[k];
-					 h++;
-				 }
-				 for (t=0;t<s;t++){
-				 if (strcmp(names[t], name)!=0)
-				 {
-					 strcpy(names[f],name);
-					 f++;
-					 max++;
-				 }
-				 h=0;
-				 s++;
-				 
-			 }
-		 }
-	 }
+			 while(list[i]!=' ')
+				i++;
+			for (j = 0; j < 100; j++)
+				name[j] = '-';
+			i++;
+			j = 0;
+			while(list[i]!= ' ')
+			{
+				name[j] = list[i];
+				j++;
+				i++;
+			}
+			int wasFound = 0;
+			for (j = 0; j <= filled; j++)
+			{
+				if (strcmp(names[j], name) == 0)
+				{
+					counter[j]++;
+					wasFound = 1;
+					break;
+				}
+			}
+			if (wasFound == 0)
+			{
+				filled++;
+				strcpy(name[filled], name);
+				counter[filled]++;
+			}
+			
+			
+			 i++;
    }
-	   
-	return max;
+   
+   for (i = 0; i < 100; i++)
+   {
+	   if (counter[i] > max)
+		   max = counter[i];
+   }
+	   sprintf(sumLine, "%i", max);
+	return ;
 }
