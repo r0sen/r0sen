@@ -1,11 +1,11 @@
-#ifndef ARRAY_H_INCLUDED
+#ifndef LIST_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdlib.h>
-#define MAX_LIST_SIZE 50
+#define MAX_SIZE 30
 
 typedef struct list_s list_t;
 list_t * list_new(int size);

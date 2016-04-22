@@ -17,6 +17,7 @@ int main(void){
     printf("Positive count: %i\n", list_counter_positive(list));
     printf("Negative count: %i\n", list_counter_negative(list));
     printf("Null count: %i\n", list_counter_null(list));
-    list_clear(&list);
+    list_clear(&list); 
+	
 	return 0;
 }

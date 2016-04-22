@@ -1,6 +1,7 @@
 #include "list.h"
 #include "time.h"
-#define MAX_SIZE 30
+
+
 
 
 struct list_s{
