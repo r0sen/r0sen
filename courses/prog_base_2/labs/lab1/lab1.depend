@@ -75,3 +75,40 @@
 	"file.h"
 	"glossary.h"
 
+1461349341 source:c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\file.c
+	"file.h"
+	"folder.h"
+
+1461349339 c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\file.h
+	<strings.h>
+	<stdlib.h>
+	"folder.h"
+
+1461348264 c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\folder.h
+	<stdlib.h>
+	"file.h"
+
+1461349341 source:c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\folder.c
+	"folder.h"
+	"file.h"
+
+1461348434 source:c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\glossary.c
+	"glossary.h"
+
+1461349698 c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\glossary.h
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	"folder.h"
+	"file.h"
+
+1461349341 source:c:\users\Администратор\desktop\Универ\1 курс\1 семестр\ОП\r0sen\courses\prog_base_2\labs\lab1\main.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"folder.h"
+	"file.h"
+	"glossary.h"
+

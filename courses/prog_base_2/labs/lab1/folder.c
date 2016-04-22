@@ -12,7 +12,7 @@ struct folder_s
 struct file_s
 {
     char * data;
-    file_status_t status;
+    file_stat_t status;
 };
 
 folder_t * newFolder(void)
@@ -42,13 +42,13 @@ file_t * newFile(folder_t * folder)
     folder->files[(folder->size)++] = file;
 
     folder->status = FOLDER_OK;
-    file->status = FILE_EMPTY;
+    file->status = FILE_IS_EMPTY;
     return file;
 }
 
 void freeFolder(folder_t * folder)
 {
-    register int i;
+    int i;
     if(folder == NULL)
         return NULL;
     if(folder->status != FOLDER_EMPTY)
@@ -61,13 +61,13 @@ void freeFolder(folder_t * folder)
 
 char * getData(folder_t * folder)
 {
-    register int i;
+    int i;
     if(folder == NULL)
         return;
     char folderData[300];
     for(i = 0; i<folder->size; i++)
     {
-        if(file_getStatus(folder->files[i]) == FILE_EMPTY)
+        if(file_getStat(folder->files[i]) == FILE_IS_EMPTY)
             continue;
         if(i == 0)
         {

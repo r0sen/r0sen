@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "folder.h"
 
-#define FILE_SIZE 100
+#define FILE_SIZE 200
 
 typedef struct folder_s folder_t;
 typedef struct file_s file_t;
@@ -17,11 +17,11 @@ char * file_getData(folder_t * folder, file_t * file);
 
 void freeFile(folder_t * folder, file_t * file);
 
-typedef enum file_status_t
+typedef enum file_stat_t
 {
-    FILE_OK,
-    FILE_EMPTY
-} file_status_t;
+    FILE__IS_OK,
+    FILE_IS_EMPTY
+} file_stat_t;
 
-file_status_t file_getStatus(file_t * file);
+file_stat_t file_getStat(file_t * file);
 #endif // FILE_H_INCLUDED

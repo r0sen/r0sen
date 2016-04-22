@@ -14,25 +14,25 @@ struct gloss_s
 
 gloss_t * newGloss(void)
 {
-    register int i;
-    gloss_t * glos = malloc(sizeof(struct gloss_s));
-    glos->countOfAll = 0;
+    int i;
+    gloss_t * glossy = malloc(sizeof(struct gloss_s));
+    glossy->countOfAll = 0;
     for(i = 0; i<200; i++)
-        glos->words[i].countOfThis = 0;
-    glos->countOfAll = 0;
-    return glos;
+        glossy->words[i].countOfThis = 0;
+    glossy->countOfAll = 0;
+    return glossy;
 }
 
-void freeGloss(gloss_t * glos)
+void freeGloss(gloss_t * glossy)
 {
-    if(glos == NULL)
+    if(glossy == NULL)
         return NULL;
-    free(glos);
+    free(glossy);
 }
 
-void fillGlossary(gloss_t * glos, folder_t * folder)
+void fillInGlossary(gloss_t * glossy, folder_t * folder)
 {
-    register int i;
+    int i;
     _Bool check = FALSE;
     char *str;
     //char * folderText = malloc(100 * sizeof(char));
@@ -41,12 +41,12 @@ void fillGlossary(gloss_t * glos, folder_t * folder)
     str = strtok(folderText, " .,?!;");
     while(str != NULL)
     {
-        for(i = 0; i<glos->countOfAll; i++)
+        for(i = 0; i<glossy->countOfAll; i++)
         {
-            if(strcmp(str, glos->words[i].word) == 0)
+            if(strcmp(str, glossy->words[i].word) == 0)
             {
                 check = TRUE;
-                glos->words[i].countOfThis++;
+                glossy->words[i].countOfThis++;
                 break;
             }
             else
@@ -54,9 +54,9 @@ void fillGlossary(gloss_t * glos, folder_t * folder)
         }
         if(!check)
         {
-            strcpy(glos->words[glos->countOfAll].word, str);
-            glos->words[glos->countOfAll].countOfThis++;//!!!!!
-            glos->countOfAll++;
+            strcpy(glossy->words[glossy->countOfAll].word, str);
+            glossy->words[glossy->countOfAll].countOfThis++;//!!!!!
+            glossy->countOfAll++;
         }
         check = FALSE;
         str = strtok(NULL, " .,?!;");
@@ -64,13 +64,13 @@ void fillGlossary(gloss_t * glos, folder_t * folder)
     //free(folderText);
 }
 
-void printGlossary(gloss_t * glos)
+void outputGlossary(gloss_t * glossy)
 {
-    register int i;
-    if(glos == NULL)
+    int i;
+    if(glossy == NULL)
         return NULL;
-    for(i = 0; i<glos->countOfAll; i++)
+    for(i = 0; i<glossy->countOfAll; i++)
     {
-        printf("%s - %i\n", glos->words[i].word, glos->words[i].countOfThis);
+        printf("%s - %i\n", glossy->words[i].word, glossy->words[i].countOfThis);
     }
 }

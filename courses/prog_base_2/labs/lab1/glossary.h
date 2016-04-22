@@ -12,8 +12,8 @@ typedef struct gloss_s gloss_t;
 
 gloss_t * newGloss(void);
 
-void freeGloss(gloss_t * glos);
+void freeGloss(gloss_t * glossy);
 
-void fillGlossary(gloss_t * glos, folder_t * folder);
-void printGlossary(gloss_t * glos);
+void fillInGlossary(gloss_t * glossy, folder_t * folder);
+void outputGlossary(gloss_t * glossy);
 #endif // GLOSSARY_H_INCLUDED

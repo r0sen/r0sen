@@ -11,7 +11,7 @@ struct folder_s
 struct file_s
 {
     char * data;
-    file_status_t status;
+    file_stat_t status;
 };
 
 void fillData(folder_t* folder, file_t* file, char* data)
@@ -20,7 +20,7 @@ void fillData(folder_t* folder, file_t* file, char* data)
         return;
     if(data == NULL)
     {
-        file->status = FILE_EMPTY;
+        file->status = FILE_IS_EMPTY;
         return;
     }
 
@@ -28,20 +28,20 @@ void fillData(folder_t* folder, file_t* file, char* data)
 
     strcpy(file->data, data);
 
-    file->status = FILE_OK;
+    file->status = FILE__IS_OK;
 }
 
 void deleteData(folder_t * folder, file_t * file)
 {
-    if(folder == NULL || file == NULL || folder->status == FOLDER_EMPTY || file->status == FILE_EMPTY)
+    if(folder == NULL || file == NULL || folder->status == FOLDER_EMPTY || file->status == FILE_IS_EMPTY)
         return NULL;
     free(file->data);
-    file->status = FILE_EMPTY;
+    file->status = FILE_IS_EMPTY;
 }
 
 char * file_getData(folder_t * folder, file_t * file)
 {
-    if(folder == NULL || file == NULL || folder->status == FOLDER_EMPTY || file->status == FILE_EMPTY)
+    if(folder == NULL || file == NULL || folder->status == FOLDER_EMPTY || file->status == FILE_IS_EMPTY)
         return;
     return file->data;
 }
@@ -50,15 +50,15 @@ void freeFile(folder_t * folder, file_t* file)
 {
     if(folder == NULL || file == NULL)
         return NULL;
-    if(file->status == FILE_EMPTY)
+    if(file->status == FILE_IS_EMPTY)
         return NULL;
-    if(file_getStatus(file) != FILE_EMPTY)
+    if(file_getStat(file) != FILE_IS_EMPTY)
         free(file->data);
     free(file);
     (folder->size)--;
 }
 
-file_status_t file_getStatus(file_t * file)
+file_stat_t file_getStat(file_t * file)
 {
     return file->status;
 }
