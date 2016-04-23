@@ -1,0 +1,4 @@
+EXPORTS
+    DllMain@12 @1
+    action_whenChecked @2
+    check_list @3

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1461396425 source:c:\users\Администратор\desktop\labs\dynlib2\main.cpp
+	"main.h"
+
+1461393129 c:\users\Администратор\desktop\labs\dynlib2\main.h
+	<windows.h>
+	"list.h"
+
+1461366655 c:\users\Администратор\desktop\labs\staticlib\list.h
+	<stdlib.h>
+	<stdio.h>
+
