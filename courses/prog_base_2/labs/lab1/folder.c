@@ -46,7 +46,7 @@ file_t * newFile(folder_t * folder)
     return file;
 }
 
-void freeFolder(folder_t * folder)
+void folder_freeFolder(folder_t * folder)
 {
     int i;
     if(folder == NULL)
@@ -54,12 +54,12 @@ void freeFolder(folder_t * folder)
     if(folder->status != FOLDER_EMPTY)
     {
         for(i=folder->size-1 ; i>=0; i--)
-            freeFile(folder, folder->files[i]);
+            file_freeFile(folder, folder->files[i]);
     }
     free(folder);
 }
 
-char * getData(folder_t * folder)
+char * folder_getData(folder_t * folder)
 {
     int i;
     if(folder == NULL)
@@ -80,12 +80,12 @@ char * getData(folder_t * folder)
     return folderData;
 }
 
-int getSize(folder_t * folder)
+int folder_getSize(folder_t * folder)
 {
     return folder->size;
 }
 
-folder_status_t getStatus(folder_t * folder)
+folder_status_t folder_getStatus(folder_t * folder)
 {
     return folder->status;
 }

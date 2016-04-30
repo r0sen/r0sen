@@ -12,7 +12,7 @@ struct gloss_s
     glossary words[200];
 };
 
-gloss_t * newGloss(void)
+gloss_t * glossary_newGloss(void)
 {
     int i;
     gloss_t * glossy = malloc(sizeof(struct gloss_s));
@@ -23,21 +23,21 @@ gloss_t * newGloss(void)
     return glossy;
 }
 
-void freeGloss(gloss_t * glossy)
+void glossary_freeGloss(gloss_t * glossy)
 {
     if(glossy == NULL)
         return NULL;
     free(glossy);
 }
 
-void fillInGlossary(gloss_t * glossy, folder_t * folder)
+void glossary_fillInGlossary(gloss_t * glossy, folder_t * folder)
 {
     int i;
     _Bool check = FALSE;
     char *str;
     //char * folderText = malloc(100 * sizeof(char));
     char folderText[100];
-    strcpy(folderText, getData(folder));
+    strcpy(folderText, folder_getData(folder));
     str = strtok(folderText, " .,?!;");
     while(str != NULL)
     {
@@ -64,7 +64,7 @@ void fillInGlossary(gloss_t * glossy, folder_t * folder)
     //free(folderText);
 }
 
-void outputGlossary(gloss_t * glossy)
+void glossary_outputGlossary(gloss_t * glossy)
 {
     int i;
     if(glossy == NULL)

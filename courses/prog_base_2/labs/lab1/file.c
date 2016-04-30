@@ -14,7 +14,7 @@ struct file_s
     file_stat_t status;
 };
 
-void fillData(folder_t* folder, file_t* file, char* data)
+void file_fillData(folder_t* folder, file_t* file, char* data)
 {
     if(folder == NULL || file == NULL)
         return;
@@ -31,7 +31,7 @@ void fillData(folder_t* folder, file_t* file, char* data)
     file->status = FILE__IS_OK;
 }
 
-void deleteData(folder_t * folder, file_t * file)
+void file_deleteData(folder_t * folder, file_t * file)
 {
     if(folder == NULL || file == NULL || folder->status == FOLDER_EMPTY || file->status == FILE_IS_EMPTY)
         return NULL;
@@ -46,7 +46,7 @@ char * file_getData(folder_t * folder, file_t * file)
     return file->data;
 }
 
-void freeFile(folder_t * folder, file_t* file)
+void file_freeFile(folder_t * folder, file_t* file)
 {
     if(folder == NULL || file == NULL)
         return NULL;

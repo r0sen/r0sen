@@ -10,12 +10,12 @@
 typedef struct folder_s folder_t;
 typedef struct file_s file_t;
 
-void fillData(folder_t * folder, file_t * file, char* data);
-void deleteData(folder_t * folder, file_t * file);
+void file_fillData(folder_t * folder, file_t * file, char* data);
+void file_deleteData(folder_t * folder, file_t * file);
 
 char * file_getData(folder_t * folder, file_t * file);
 
-void freeFile(folder_t * folder, file_t * file);
+void file_freeFile(folder_t * folder, file_t * file);
 
 typedef enum file_stat_t
 {
