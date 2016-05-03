@@ -1,22 +1,22 @@
-#include <string>
-#include <SFML/Graphics.hpp>
-using namespace sf;
 #ifndef CARD_H
 #define CARD_H
+#include <string>
+#include <SFML/Graphics.hpp>
 
+using namespace sf;
 
 class Card
-
 {
 	private:
 		short int valueIdentifier;
 		short int colorIdentifier;
-        short int sideIdentifier;
 		std::string imagePath;
+
+
 
 	public:
 	    Card();
-	    		Sprite sprite;
+	    bool isClicked(int x, int y);
 		short int getValueIdentifier();
 		std::string getImagePath();
 		void setValueIdentifier(short int valueInput);
@@ -24,11 +24,15 @@ class Card
 		void drawOnScreen();
 		short int getColorIdentifier();
 		void setColorIdentifier(short int id);
+		Sprite sprite;
 		int posX;
 		int posY;
-		int height;
 		int width;
-		bool isClicked(int x, int y);
+		int height;
+		bool visible;
+		void setTexture();
+		Texture texture;
+
 };
 
 #endif

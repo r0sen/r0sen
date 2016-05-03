@@ -11,6 +11,5 @@ class Deck{
 		void putRandom();
 		Card getCard();
 
-
 };
 #endif
