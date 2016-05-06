@@ -22,7 +22,7 @@ Game::Game(RenderWindow* winInput)
 void Game::start()
 {
 
-    //restart:
+
     this->deck = new Deck();
     deck->putRandom();
     Texture cardTexture;
@@ -31,7 +31,7 @@ void Game::start()
     backTexture.loadFromFile("img/wood-texture.jpg");
     background.setTexture(backTexture);
     background.setPosition(0, 0);
-    background.setScale((float)SCREEN_WIDTH/400, (float)SCREEN_HEIGHT/ 300);
+    //background.setScale((float)SCREEN_WIDTH/400, (float)SCREEN_HEIGHT/ 300);
 
 
 //U WIN U LOSE PICS
@@ -40,13 +40,13 @@ void Game::start()
     Texture uLose;
     uLose.loadFromFile("img/lose.png");
     lose.setTexture(uLose);
-    lose.setPosition(300, SCREEN_HEIGHT-89);
+    lose.setPosition(300, 444);
 
     Sprite winn;
     Texture uWin;
     uWin.loadFromFile("img/win.png");
     winn.setTexture(uWin);
-    winn.setPosition(300, SCREEN_HEIGHT-89);
+    winn.setPosition(300, 444);
 
 
     Sprite both;
@@ -114,16 +114,8 @@ void Game::start()
 
                     if (restartButton->isPressed(event.mouseButton.x, event.mouseButton.y))
                     {
-
                         //this->win = winInput;
-                        this->rateMe = 0;
-                        this->rateOpponent = 0;
-                        this->countSteps = 2;
-                        this->finishedGame = false;
-                        this->winMe = false;
-                        this->winOpponent = false;
-                        this->both = false;
-                        //goto restart;
+                        nextDistribution();
                     }
                     //this->win->close(); // @TODO: finish game
                 }
@@ -240,5 +232,44 @@ void Game::testForWinSkip()
 
     if((this->winMe == true)||(this->winOpponent == true)||(this->both == true))
         this->finishedGame = true;
+
+}
+
+
+void Game::nextDistribution()
+{
+    //free(this);
+    this->rateMe = 0;
+    this->rateOpponent = 0;
+    this->countSteps = 2;
+    this->finishedGame = false;
+    this->winMe = false;
+    this->winOpponent = false;
+    this->both = false;
+    deck->putRandom();
+        for (int i = 0; i < 5; i++)
+    {
+        //this->opponent[i] = new Card();
+        *opponent[i] = deck->getCard();
+        opponent[i]->sprite.setPosition(i * 100 + 190, 100);
+        opponent[i]->setTexture();
+        opponent[i]->visible = false;
+
+        //this->me[i] = new Card();
+        *me[i] = deck->getCard();
+        me[i]->sprite.setPosition(i * 100 + 190, 300);
+        me[i]->setTexture();
+        me[i]->visible = false;
+    }
+// put cards in start POSITION
+    opponent[0]->texture.loadFromFile("img/finish_cards_sheet.png");
+    opponent[0]->sprite.setTextureRect(sf::IntRect(0, (float) 492/1, (float)1027/13, (float)615/5 ));
+    opponent[0]->sprite.setTexture(opponent[0]->texture);
+
+    //opponent[0]->~Card;
+    opponent[0]->visible = true;
+    opponent[1]->visible = true;
+    me[0]->visible = true;
+    me[1]->visible = true;
 
 }

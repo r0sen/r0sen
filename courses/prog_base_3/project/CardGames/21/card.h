@@ -16,6 +16,7 @@ class Card
 
 	public:
 	    Card();
+
 	    bool isClicked(int x, int y);
 		short int getValueIdentifier();
 		std::string getImagePath();

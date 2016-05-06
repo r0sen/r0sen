@@ -33,5 +33,6 @@ private:
     bool winOpponent;
     bool both;
     void testForWinSkip();
+    void nextDistribution();
 
 };

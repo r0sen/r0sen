@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1462271363 source:c:\users\Администратор\desktop\курсач\21\card.cpp
+1462562971 source:c:\users\Администратор\desktop\курсач\21\card.cpp
 	"card.h"
 
-1462271363 c:\users\Администратор\desktop\курсач\21\card.h
+1462563274 c:\users\Администратор\desktop\курсач\21\card.h
 	<string>
 	<SFML/Graphics.hpp>
 
@@ -384,7 +384,7 @@
 	<string>
 	<vector>
 
-1462098870 source:c:\users\Администратор\desktop\курсач\21\deck.cpp
+1462550953 source:c:\users\Администратор\desktop\курсач\21\deck.cpp
 	"Deck.h"
 
 1462098870 c:\users\Администратор\desktop\курсач\21\deck.h
@@ -399,12 +399,12 @@
 
 1462098870 c:\users\Администратор\desktop\курсач\21\consts.h
 
-1462307447 source:c:\users\Администратор\desktop\курсач\21\game.cpp
+1462562896 source:c:\users\Администратор\desktop\курсач\21\game.cpp
 	"Game.h"
 	<sstream>
 	<iostream>
 
-1462304969 c:\users\Администратор\desktop\курсач\21\game.h
+1462550522 c:\users\Администратор\desktop\курсач\21\game.h
 	"Card.h"
 	"Deck.h"
 	"NextBotton.h"

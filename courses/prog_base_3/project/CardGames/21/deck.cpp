@@ -36,6 +36,9 @@ void Deck::putRandom()
 
 Card Deck::getCard()
 {
-	pos++;
+
+	if (pos>10)
+        pos = 0;
+    pos++;
 	return card[pos-1];
 }
