@@ -399,12 +399,12 @@
 
 1462098870 c:\users\Администратор\desktop\курсач\21\consts.h
 
-1462562896 source:c:\users\Администратор\desktop\курсач\21\game.cpp
+1462641319 source:c:\users\Администратор\desktop\курсач\21\game.cpp
 	"Game.h"
 	<sstream>
 	<iostream>
 
-1462550522 c:\users\Администратор\desktop\курсач\21\game.h
+1462640638 c:\users\Администратор\desktop\курсач\21\game.h
 	"Card.h"
 	"Deck.h"
 	"NextBotton.h"

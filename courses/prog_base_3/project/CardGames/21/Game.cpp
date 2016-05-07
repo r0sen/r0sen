@@ -3,13 +3,15 @@
 #include <iostream>
 
 
-
+bool counter;
 Game::Game(RenderWindow* winInput)
 {
     this->win = winInput;
     this->rateMe = 0;
     this->rateOpponent = 0;
     this->countSteps = 2;
+    this->countStepsMe = 2;
+    this->countStepsOpponent = 2;
     this->finishedGame = false;
     this->winMe = false;
     this->winOpponent = false;
@@ -51,9 +53,9 @@ void Game::start()
 
     Sprite both;
     Texture theBoth;
-    theBoth.loadFromFile("img/win.png");
+    theBoth.loadFromFile("img/both.png");
     both.setTexture(theBoth);
-    both.setPosition(200, 200);
+    both.setPosition(300, 444);
 
     // BUTTONS
     this->nextButton = new NextBotton();
@@ -105,17 +107,27 @@ void Game::start()
                         if(this->finishedGame == false)
                         {
                             this->nextRound();
-
                         }
 
                     if (endButton->isPressed(event.mouseButton.x, event.mouseButton.y))
                         if(this->finishedGame == false)
-                            this->testForWinFinal();
+                        {
+                            bool c = false;
+
+                            while(this->finishedGame == false){
+                                if(c == false)
+                                    c = this->aiTurn();
+                                    else
+                                        this->testForWinFinal();
+
+                            }
+                            //this->testForWinFinal();
+                        }
 
                     if (restartButton->isPressed(event.mouseButton.x, event.mouseButton.y))
                     {
                         //this->win = winInput;
-                        nextDistribution();
+                        restartGame();
                     }
                     //this->win->close(); // @TODO: finish game
                 }
@@ -126,7 +138,7 @@ void Game::start()
         this->win->clear();
         this->win->draw(background);
 
-        for (int i = 0; i <= this->countSteps; i++)
+        for (int i = 0; i <5; i++)
         {
             if (me[i]->visible)
                 this->win->draw(me[i]->sprite);
@@ -154,7 +166,10 @@ void Game::start()
         {
             opponent[0]->setTexture();
             this->win->draw(opponent[0]->sprite);
+
         }
+
+
         this->win->draw(nextButton->sprite);
         this->win->draw(endButton->sprite);
         this->win->draw(restartButton->sprite);
@@ -165,55 +180,62 @@ void Game::start()
 
 void Game::nextRound()
 {
-    this->rateMe = 0;
-    this->rateOpponent = 0;
-    if(this->countSteps<5)
-    {
-        for(int i = 0; i<= this->countSteps; i++)
-        {
-
-
-            this->rateMe +=this->me[i]->getValueIdentifier() + 1;
-
-            if(this->me[i]->getValueIdentifier()==12)
-                this->rateMe = this->rateMe - 3;
-            if(this->me[i]->getValueIdentifier()==11)
-                this->rateMe = this->rateMe - 2;
-            if(this->me[i]->getValueIdentifier()==10)
-                this->rateMe = this->rateMe - 1;
-        }
-        for(int i = 0; i<= this->countSteps; i++)
-        {
-            this->rateOpponent =this->rateOpponent + this->opponent[i]->getValueIdentifier() + 1;
-            if(this->opponent[i]->getValueIdentifier()==12)
-                this->rateOpponent = this->rateOpponent - 3;
-            if(this->opponent[i]->getValueIdentifier()==11)
-                this->rateOpponent = this->rateOpponent - 2;
-            if(this->opponent[i]->getValueIdentifier()==10)
-                this->rateOpponent = this->rateOpponent - 1;
-        }
-        for(int i = 0; i<= this->countSteps; i++)
+    this->rateMeFn();
+    this->countStepsMe++;
+        for(int i = 0; i< this->countStepsMe; i++)
         {
             this->me[i]->visible = true;
+        }
+
+
+
+
+
+        this->aiTurn();
+        for(int i = 0; i< this->countStepsOpponent; i++)
+        {
             this->opponent[i]->visible = true;
         }
-        this->countSteps++;
+
+
         printf("rateMe = %i\n", this->rateMe);
         printf("rateOpponent = %i\n", this->rateOpponent);
         this->testForWinSkip();
     }
 
-}
+
 
 void Game::testForWinFinal()
 {
-    this->countSteps--;
+    this->countStepsMe--;
     this->nextRound();
-    if (this->rateMe > this->rateOpponent)
+    if((this->rateMe == 21)&&(this->rateOpponent != 21))
         this->winMe = true;
-    if (this->rateMe < this->rateOpponent)
+    if((this->rateOpponent == 21)&&(this->rateMe != 21))
         this->winOpponent = true;
-    this->finishedGame = true;
+    if((this->rateMe > 21)&&(this->rateOpponent < 21))
+        this->winOpponent = true;
+    if((this->rateOpponent > 21)&&(this->rateMe < 21))
+        this->winMe = true;
+    if((this->rateOpponent > 21)&&(this->rateMe > 21))
+        this->both = true;
+
+
+
+
+    else{
+    if ((this->rateMe > this->rateOpponent)&&((this->rateOpponent <= 21)&&(this->rateMe <= 21)))
+        this->winMe = true;
+    if ((this->rateMe < this->rateOpponent)&&((this->rateOpponent <= 21)&&(this->rateMe <= 21)))
+        this->winOpponent = true;
+    if (this->rateMe == this->rateOpponent)
+        this->both = true;
+    }
+
+
+
+    if((this->winMe == true)||(this->winOpponent == true)||(this->both == true))
+        this->finishedGame = true;
 
 }
 void Game::testForWinSkip()
@@ -236,9 +258,11 @@ void Game::testForWinSkip()
 }
 
 
-void Game::nextDistribution()
+void Game::restartGame()
 {
     //free(this);
+    this->countStepsOpponent = 2;
+    this->countStepsMe = 2;
     this->rateMe = 0;
     this->rateOpponent = 0;
     this->countSteps = 2;
@@ -247,7 +271,7 @@ void Game::nextDistribution()
     this->winOpponent = false;
     this->both = false;
     deck->putRandom();
-        for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)
     {
         //this->opponent[i] = new Card();
         *opponent[i] = deck->getCard();
@@ -273,3 +297,67 @@ void Game::nextDistribution()
     me[1]->visible = true;
 
 }
+
+bool Game::aiTurn()
+{
+    this->rateOpponentFn();
+    this->rateMeFn();
+
+    if(this->rateOpponent < 16)
+    {
+               this->countStepsOpponent++;
+               this->rateOpponentFn();
+               return false;
+
+    }
+return true;
+
+}
+
+void Game::rateMeFn()
+{
+
+
+    if(this->countStepsMe<5)
+    {
+            this->rateMe = 0;
+        for(int i = 0; i< this->countStepsMe; i++)
+        {
+
+
+            this->rateMe +=this->me[i]->getValueIdentifier() + 1;
+
+            if(this->me[i]->getValueIdentifier()==12)
+                this->rateMe = this->rateMe - 3;
+            if(this->me[i]->getValueIdentifier()==11)
+                this->rateMe = this->rateMe - 2;
+            if(this->me[i]->getValueIdentifier()==10)
+                this->rateMe = this->rateMe - 1;
+        }
+
+
+}
+}
+
+
+
+    void Game::rateOpponentFn(){
+
+    if(this->countStepsOpponent<5)
+    {
+        rateOpponent = 0;
+        for(int i = 0; i< this->countStepsOpponent; i++)
+        {
+            this->rateOpponent =this->rateOpponent + this->opponent[i]->getValueIdentifier() + 1;
+            if(this->opponent[i]->getValueIdentifier()==12)
+                this->rateOpponent = this->rateOpponent - 3;
+            if(this->opponent[i]->getValueIdentifier()==11)
+                this->rateOpponent = this->rateOpponent - 2;
+            if(this->opponent[i]->getValueIdentifier()==10)
+                this->rateOpponent = this->rateOpponent - 1;
+        }
+
+
+
+    }
+    }

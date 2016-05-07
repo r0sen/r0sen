@@ -3,7 +3,6 @@
 #include "NextBotton.h"
 #include "EndBotton.h"
 #include "RestartBotton.h"
-//#include "RaiseBtn.h"
 #include "Consts.h"
 #include <cstdlib>
 #include <cstdio>
@@ -24,6 +23,8 @@ private:
     int rateMe;
     int rateOpponent;
     int countSteps;
+    int countStepsMe;
+    int countStepsOpponent;
     NextBotton* nextButton;
     EndBotton* endButton;
     RestartBotton* restartButton;
@@ -33,6 +34,10 @@ private:
     bool winOpponent;
     bool both;
     void testForWinSkip();
-    void nextDistribution();
+    void restartGame();
+    bool aiTurn();
+    void rateMeFn();
+    void rateOpponentFn();
+
 
 };
