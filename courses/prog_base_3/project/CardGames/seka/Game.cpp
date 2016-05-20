@@ -14,41 +14,81 @@ Game::Game(RenderWindow* winInput)
         this->opponent[i] = new Card();
         this->me[i] = new Card();
     }
-    this->bankThisGame = 0;
-  this->bankMe = 100;
-    this->bankOpponent = 100;
+    this->bankThisGame = 10;
+    this->bankMe = 95;
+    this->bankOpponent = 95;
     this->betMe = 5;
-   this-> betOpponent = 5;
+    this-> betOpponent = 5;
     this->pointsMe = 0;
-   this-> pointsOpponent = 0;
+    this-> pointsOpponent = 0;
+    this->inRound = true;
+    this->endGame = false;
+    this->winMe = false;
+    this->winOpponent = false;
+}
+
+void Game::nextBetMe()
+{
+    if(this->bankMe-this->betOpponent <= 0 )
+    {
+        this->bankThisGame += this->bankMe;
+        this->bankMe = 0;
+        revealDo();
+    }
+
+
+    this->nextDo();
+    if (this->betOpponent == this->betMe)
+    {
+        this->bankThisGame = this->bankThisGame + this->betOpponent;
+        this->betMe =betMe;
+        this->bankMe-= this->betMe;
+    }
+    else
+    {
+        this->betMe =this->betOpponent;
+        this->bankMe-= this->betMe;
+    }
 
 }
 
-void Game::repeatBetMe()
-{
-    this->bankThisGame = this->bankThisGame + this->betOpponent;
-    this->betMe +=5;
-    this->bankMe=this->bankMe - this->betOpponent;
-    this->nextDo();
-    }
-
 void Game::raiseBetMe()
 {
-    this->bankThisGame = this->bankThisGame + this->betOpponent + 5;
-    this->bankMe=this->bankMe - this->betOpponent - 5;
+    if(this->bankMe-this->betOpponent <=0 )
+    {
+        this->bankThisGame += this->bankMe;
+        this->bankMe = 0;
+        revealDo();
+    }
+
+    //this->bankThisGame = this->bankThisGame  + 5;
+    //this->bankMe=this->bankMe  - 5;
     this->betMe+=5;
 }
 
 void Game::repeatBetOpponent()
 {
-    this->bankThisGame = this->bankThisGame + this->betMe;
-        this->betOpponent +=5;
+    if(this->bankOpponent-this->betMe <=0 )
+    {
+        this->bankThisGame += this->bankOpponent;
+        this->bankOpponent = 0;
+        revealDo();
+    }
+
+    this->bankThisGame += this->betMe;
+    this->betOpponent =this->betMe;
 
     this->bankOpponent=this->bankOpponent - this->betMe;
 }
 
 void Game::raiseBetOpponent()
 {
+    if(this->bankOpponent-this->betMe <= 0 )
+    {
+        this->bankThisGame += this->bankOpponent;
+        this->bankOpponent = 0;
+        revealDo();
+    }
     this->bankThisGame = this->bankThisGame + this->betMe + 5;
     this->bankOpponent=this->bankOpponent - this->betMe - 5;
     this->betOpponent+=5;
@@ -93,19 +133,41 @@ void Game::countPointsMe()
 
 }
 
+/**void Game::pointsInSeka(int i)
+{
+             if(this->opponent[i]->getValueIdentifier()== 10)
+            this->pointsOpponent -=1;
+          if(this->opponent[i]->getValueIdentifier()== 11)
+            this->pointsOpponent -=2;
+          if(this->opponent[i]->getValueIdentifier()== 13)
+            this->pointsOpponent -=3;
+}**/
 void Game::countPointsOpponent()
 {
+    int gameValue = 0;
     if((this->opponent[0]->getColorIdentifier() == this->opponent[1]->getColorIdentifier()) && (this->opponent[0]->getColorIdentifier() == this->opponent[2]->getColorIdentifier()))
     {
         for (int i = 0; i<3; i++)
         {
-            this->pointsOpponent+=this->opponent[i]->getValueIdentifier();
+            this->pointsOpponent+=this->opponent[i]->getValueIdentifier() + 1;
+         /** if(this->opponent[i]->getValueIdentifier()== 10)
+            this->pointsOpponent -=1;
+          if(this->opponent[i]->getValueIdentifier()== 11)
+            this->pointsOpponent -=2;
+          if(this->opponent[i]->getValueIdentifier()== 13)
+            this->pointsOpponent -=3;
+          if(this->opponent[i]->getValueIdentifier()== 4)
+            this->pointsOpponent +=3;   **/
         }
     }
 
     if ((this->opponent[0]->getColorIdentifier() == this->opponent[1]->getColorIdentifier()) && (this->opponent[0]->getColorIdentifier() != this->opponent[2]->getColorIdentifier()))
+        {
+
+
         this->pointsOpponent=this->opponent[0]->getValueIdentifier() + this->opponent[1]->getValueIdentifier();
 
+        }
     if ((this->opponent[0]->getColorIdentifier() == this->opponent[2]->getColorIdentifier()) && (this->opponent[0]->getColorIdentifier() != this->opponent[1]->getColorIdentifier()))
         this->pointsOpponent=this->opponent[0]->getValueIdentifier() + this->opponent[2]->getValueIdentifier();
 
@@ -134,9 +196,11 @@ void Game::countPointsOpponent()
 
 void Game::aiTurn()
 {
+    srand(std::time(0));
     this->countPointsOpponent();
-    if(this->pointsOpponent > 15)
+    if((this->pointsOpponent > 10)&&(rand()%3 ==1))
         this->raiseBetOpponent();
+
     else
         this->repeatBetOpponent();
 
@@ -144,9 +208,9 @@ void Game::aiTurn()
 }
 
 
-void Game::repeatDo()
+void Game::nextBetMeDo()
 {
-    this->repeatBetMe();
+    this->nextBetMe();
 }
 
 
@@ -186,27 +250,56 @@ void Game::revealDo()
     this->countPointsOpponent();
     this->lookForWinner();
     this->showCardsOpponent();
+    this->bankThisGame = 0;
+    this->betMe = 0;
+    this->betOpponent = 0;
+
 }
 void Game::passDo()
 {
     this-> bankOpponent += this->bankThisGame;
     this->bankThisGame = 0;
+    this->betMe = 0;
+    this->betOpponent = 0;
     this->showCardsOpponent();
+    this->inRound = false;
 }
 
 void Game::restartGame()
 {
-    bankThisGame = 0;
-    bankMe = 100;
-    bankOpponent = 100;
+    bankThisGame = 10;
+    bankMe = 95;
+    bankOpponent = 95;
+    betMe = 5;
+    betOpponent = 5;
+    pointsMe = 0;
+    pointsOpponent = 0;
+    this->inRound = true;
+    this->fillCards();
+    this->endGame = false;
+
+}
+
+void Game::nextRound()
+{
+
+    revealDo();
+    bankThisGame = 10;
+    bankMe -= 5;
+    bankOpponent -= 5;
     betMe = 5;
     betOpponent = 5;
     pointsMe = 0;
     pointsOpponent = 0;
     this->fillCards();
+    this->inRound = true;
 
 }
+void Game::nextRoundDo()
+{
 
+    this->nextRound();
+}
 void Game::fillCards()
 {
     this->deck->putRandom();
@@ -260,30 +353,31 @@ void Game::start()
     Texture uLose;
     uLose.loadFromFile("img/lose.png");
     lose.setTexture(uLose);
-    lose.setPosition(300, 444);
+    lose.setPosition(600, 200);
 
     Sprite winn;
     Texture uWin;
     uWin.loadFromFile("img/win.png");
     winn.setTexture(uWin);
-    winn.setPosition(300, 444);
+    winn.setPosition(600, 200);
 
 
     Sprite both;
     Texture theBoth;
     theBoth.loadFromFile("img/both.png");
     both.setTexture(theBoth);
-    both.setPosition(300, 444);
+    both.setPosition(600, 200);
 
     // BUTTONS
-//this->nextButton = new NextBotton();
+    this->nextBotton = new NextBotton();
 //    this->endButton = new EndBotton();
     //restartBotton = new RestartBotton();
 
     this->revealBotton = new RevealBotton();
-    this->repeatBotton = new RepeatBotton();
+    this->nextBotton = new NextBotton();
+    //this->repeatBotton = new RepeatBotton();
     this->nextRoundBotton = new NextRoundBotton();
-    //this->raiseBotton = new RaiseBotton();
+    this->raiseBotton = new RaiseBotton();
     this->restartBotton = new RestartBotton();
     this->passBotton = new PassBotton();
 
@@ -325,7 +419,7 @@ void Game::start()
     betOpponentText.setPosition(100, 150);
     betMeText.setPosition(100, 290);
     //betText[3].setPosition(SCREEN_WIDTH - 100, 150);
-   // betText[4].setPosition(SCREEN_WIDTH - 100, 290);
+    // betText[4].setPosition(SCREEN_WIDTH - 100, 290);
     bankMeText.setPosition(5, 400);
     bankThisGameText.setPosition(20, SCREEN_HEIGHT/2 - 50);
 
@@ -367,24 +461,33 @@ void Game::start()
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    if (repeatBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
-                            repeatDo();
+                    if(endGame == false){
+                    if (nextBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                        if(inRound)
+                            nextBetMeDo();
 
                     if (passBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                        if(inRound)
                             passDo();
 
-                    if (restartBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
-                            restartDo();
+
 
                     if (revealBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                        if(inRound)
+                        {
                             revealDo();
+                            this->inRound = false;
+                        }
 
-                    //if (raiseBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
-                        //    raiseDo();
+                    if (raiseBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                        if(inRound)
+                            raiseDo();
 
-                    if (nextRoundBotton->isPressed(event.mouseButton.x, event.mouseButton.y));
-                        // next
-                    //this->win->close(); // @TODO: finish game
+                    if (nextRoundBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                        nextRoundDo();
+                    }
+                if (restartBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                        restartDo();
                 }
             }
         }
@@ -396,15 +499,28 @@ void Game::start()
         for (int i = 0; i <3; i++)
         {
 
-                this->win->draw(me[i]->sprite);
+            this->win->draw(me[i]->sprite);
 
 
-                this->win->draw(opponent[i]->sprite);
+            this->win->draw(opponent[i]->sprite);
         }
 
 
+        if (this->bankMe<=0)
+            {
+                this ->endGame = true;
+        this->win->draw(lose);
+            }
 
-        this->win->draw(bankMeText);
+
+        if (this->bankOpponent<=0)
+        {
+                this ->endGame = true;
+                this->win->draw(winn);
+        }
+
+
+            this->win->draw(bankMeText);
         this->win->draw(bankOpponentText);
         this->win->draw(bankThisGameText);
         this->win->draw(betMeText);
@@ -417,8 +533,9 @@ void Game::start()
         this->win->draw(nextRoundBotton->sprite);
         this->win->draw(revealBotton->sprite);
         this->win->draw(passBotton->sprite);
-        //this->win->draw(raiseBotton->sprite);
-        this->win->draw(repeatBotton->sprite);
+        this->win->draw(raiseBotton->sprite);
+        //this->win->draw(repeatBotton->sprite);
+        this->win->draw(nextBotton->sprite);
         this->win->display();
     }
 }
@@ -442,13 +559,13 @@ void Game::refreshText()
 
     ss.clear();
     ss << betMe;
-    betMeText.setString(  ""+ ss.str());
+    betMeText.setString(  "+"+ ss.str());
 
     ss.str("");
 
     ss.clear();
     ss << betOpponent;
-    betOpponentText.setString(  ss.str());
+    betOpponentText.setString( "+"+ ss.str());
 
 
 

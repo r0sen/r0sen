@@ -5,7 +5,7 @@ RaiseBotton::RaiseBotton()
 {
     this->height = 79;
     this->width = 120;
-    this->posX = 150;
+    this->posX = 120;
     this->posY = SCREEN_HEIGHT - this->height;
     this->texture.loadFromFile("img/raise.png");
     this->sprite.setTexture(this->texture);

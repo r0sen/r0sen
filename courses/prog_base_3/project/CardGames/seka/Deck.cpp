@@ -3,8 +3,8 @@ Deck::Deck()
 {
 	this->pos = 0;
 	int colorID = 0;
-	int valueID = 0;
-	for (int  i = 0; i < 52; i++)
+	int valueID = 4;
+	for (int  i = 0; i < 36; i++)
 	{
 		this->card[i].setColorIdentifier(colorID);
 		this->card[i].setValueIdentifier(valueID);
@@ -26,8 +26,8 @@ void Deck::putRandom()
 	int id1, id2;
 	for (int i = 0; i < 100; i++)
 	{
-		id1 = rand() % 52;
-		id2 = rand() % 52;
+		id1 = rand() % 36;
+		id2 = rand() % 36;
 		cardSwipe = this->card[id1];
 		this->card[id1] = this->card[id2];
 		this->card[id2] = cardSwipe;

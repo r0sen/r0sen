@@ -5,6 +5,7 @@
 #include "RestartBotton.h"
 
 #include "NextRoundBotton.h"
+#include "NextBotton.h"
 #include "RaiseBotton.h"
 #include "RepeatBotton.h"
 
@@ -21,11 +22,12 @@ public:
     void start();
 private:
     RenderWindow* win;
-    void nextRound();
+
 
     RevealBotton    *revealBotton;
     RepeatBotton    *repeatBotton;
     NextRoundBotton *nextRoundBotton;
+    NextBotton      *nextBotton;
     RaiseBotton     *raiseBotton;
     RestartBotton   *restartBotton;
     PassBotton      *passBotton;
@@ -48,9 +50,13 @@ private:
     int pointsMe;
     int pointsOpponent;
     int bet[5];
+    bool inRound;
+    bool endGame;
+    bool winMe;
+    bool winOpponent;
     Deck* deck;
     void refreshText();
-    void repeatBetMe();
+    void nextBetMe();
     void raiseBetMe();
 
     void repeatBetOpponent();
@@ -59,9 +65,9 @@ private:
     void countPointsOpponent();
 
     void aiTurn();
-    void repeatDo();
-    void raiseDo();
     void nextDo();
+    void raiseDo();
+    void nextBetMeDo();
     void lookForWinner();
     void showCardsOpponent();
     void revealDo();
@@ -69,6 +75,8 @@ private:
     void restartGame();
     void fillCards();
     void restartDo();
+    void nextRound();
+    void nextRoundDo();
 
 
 };

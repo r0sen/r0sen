@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1462782197 source:c:\users\Администратор\desktop\курсач\seka\card.cpp
+1463600271 source:c:\users\Администратор\desktop\курсач\seka\card.cpp
 	"card.h"
 
 1462782197 c:\users\Администратор\desktop\курсач\seka\card.h
@@ -384,7 +384,7 @@
 	<string>
 	<vector>
 
-1462550953 source:c:\users\Администратор\desktop\курсач\seka\deck.cpp
+1463600271 source:c:\users\Администратор\desktop\курсач\seka\deck.cpp
 	"Deck.h"
 
 1462098870 c:\users\Администратор\desktop\курсач\seka\deck.h
@@ -399,18 +399,19 @@
 
 1462098870 c:\users\Администратор\desktop\курсач\seka\consts.h
 
-1462901603 source:c:\users\Администратор\desktop\курсач\seka\game.cpp
+1463679625 source:c:\users\Администратор\desktop\курсач\seka\game.cpp
 	"Game.h"
 	<sstream>
 	<iostream>
 
-1462878687 c:\users\Администратор\desktop\курсач\seka\game.h
+1463678265 c:\users\Администратор\desktop\курсач\seka\game.h
 	"Card.h"
 	"Deck.h"
 	"RevealBotton.h"
 	"PassBotton.h"
 	"RestartBotton.h"
 	"NextRoundBotton.h"
+	"NextBotton.h"
 	"RaiseBotton.h"
 	"RepeatBotton.h"
 	"Consts.h"
@@ -455,7 +456,7 @@
 1462805341 c:\users\Администратор\desktop\курсач\seka\passbotton.h
 	<SFML/Graphics.hpp>
 
-1462875775 source:c:\users\Администратор\desktop\курсач\seka\raisebotton.cpp
+1463228699 source:c:\users\Администратор\desktop\курсач\seka\raisebotton.cpp
 	"RaiseBotton.h"
 	"Consts.h"
 

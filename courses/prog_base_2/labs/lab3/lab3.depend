@@ -1,0 +1,63 @@
+# depslib dependency file v1.0
+1462123046 source:c:\users\drlove\desktop\lab3\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+	"roulette.h"
+
+1462097403 c:\users\drlove\desktop\lab3\reaction.h
+
+1462123452 c:\users\drlove\desktop\lab3\roulette.h
+
+1462095595 source:c:\users\drlove\desktop\lab3\reaction.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"reaction.h"
+	"roulette.h"
+
+1462123521 source:c:\users\drlove\desktop\lab3\roulette.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"roulette.h"
+
+1463225533 source:d:\Универ\ОП Модули\лабы\lab3\roulette.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"roulette.h"
+
+1463225509 d:\Универ\ОП Модули\лабы\lab3\roulette.h
+
+1463215049 source:d:\Универ\ОП Модули\лабы\lab3\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"roulette.h"
+
+1426175038 e:\program files (x86)\cmocka\include\cmocka.h
+
+1463761150 source:c:\users\Администратор\desktop\ОП\lab3\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"roulette.h"
+
+1463761038 c:\users\Администратор\desktop\ОП\lab3\roulette.h
+
+1463761038 source:c:\users\Администратор\desktop\ОП\lab3\roulette.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"roulette.h"
+
