@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1385320480 source:c:\users\Администратор\desktop\test_1\libclinic\main.c
+
+1463771013 source:c:\users\Администратор\desktop\test_1\libclinic\clinic.c
+
+1463293074 source:c:\users\Администратор\desktop\test_1\libclinic\list\list.c
+	<stdlib.h>
+	"list.h"
+
+1463293074 c:\users\Администратор\desktop\test_1\libclinic\list\list.h
+	<stdlib.h>
+
