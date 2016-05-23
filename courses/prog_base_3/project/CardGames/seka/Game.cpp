@@ -96,31 +96,51 @@ void Game::raiseBetOpponent()
 
 void Game::countPointsMe()
 {
+    int gameValue = 0;
     if((this->me[0]->getColorIdentifier() == this->me[1]->getColorIdentifier()) && (this->me[0]->getColorIdentifier() == this->me[2]->getColorIdentifier()))
     {
         for (int i = 0; i<3; i++)
         {
             this->pointsMe+=this->me[i]->getValueIdentifier();
+          this->countSekaMe(this->me[i]);
+
         }
     }
 
     if ((this->me[0]->getColorIdentifier() == this->me[1]->getColorIdentifier()) && (this->me[0]->getColorIdentifier() != this->me[2]->getColorIdentifier()))
+        {
+
+
         this->pointsMe=this->me[0]->getValueIdentifier() + this->me[1]->getValueIdentifier();
+                  this->countSekaMe(this->me[0]);
+          this->countSekaMe(this->me[1]);
 
+
+        }
     if ((this->me[0]->getColorIdentifier() == this->me[2]->getColorIdentifier()) && (this->me[0]->getColorIdentifier() != this->me[1]->getColorIdentifier()))
-        this->pointsMe=this->me[0]->getValueIdentifier() + this->me[2]->getValueIdentifier();
-
+        {
+            this->pointsMe=this->me[0]->getValueIdentifier() + this->me[2]->getValueIdentifier();
+                            this->countSekaMe(this->me[0]);
+          this->countSekaMe(this->me[2]);
+        }
     if ((this->me[1]->getColorIdentifier() == this->me[2]->getColorIdentifier()) && (this->me[1]->getColorIdentifier() != this->me[0]->getColorIdentifier()))
-        this->pointsMe=this->me[1]->getValueIdentifier() + this->me[2]->getValueIdentifier();
-
+       {
+           this->pointsMe=this->me[1]->getValueIdentifier() + this->me[2]->getValueIdentifier();
+                           this->countSekaMe(this->me[2]);
+          this->countSekaMe(this->me[1]);
+       }
     if((this->me[0]->getColorIdentifier() != this->me[1]->getColorIdentifier()) && (this->me[0]->getColorIdentifier() != this->me[2]->getColorIdentifier()) && (this->me[1]->getColorIdentifier() != this->me[2]->getColorIdentifier()))
     {
         pointsMe = this->me[0]->getValueIdentifier();
+        int setter = 0;
         for (int i = 1; i < 3; i++)
         {
             if (this->me[i]->getValueIdentifier() > pointsMe)
-                pointsMe = this->me[i]->getValueIdentifier();
+                {pointsMe = this->me[i]->getValueIdentifier();
+                setter++;}
         }
+                        this->countSekaMe(this->me[setter]);
+
     }
 
     if ((this->me[0]->getValueIdentifier() == this->me[1]->getValueIdentifier()) && (this->me[0]->getValueIdentifier() == this->me[2]->getValueIdentifier()))
@@ -130,18 +150,32 @@ void Game::countPointsMe()
         if (this->me[0]->getValueIdentifier() == 0)
             this->pointsMe = 111;
     }
-
+printf("\nPointsMe = %i", this->pointsMe);
 }
 
-/**void Game::pointsInSeka(int i)
+void Game::countSekaOpponent(Card *card)
 {
-             if(this->opponent[i]->getValueIdentifier()== 10)
+        if(card->getValueIdentifier()== 10)
             this->pointsOpponent -=1;
-          if(this->opponent[i]->getValueIdentifier()== 11)
+        if(card->getValueIdentifier()== 11)
             this->pointsOpponent -=2;
-          if(this->opponent[i]->getValueIdentifier()== 13)
+        if(card->getValueIdentifier()== 13)
             this->pointsOpponent -=3;
-}**/
+        if(card->getValueIdentifier()== 4)
+            this->pointsOpponent +=7;
+}
+
+void Game::countSekaMe(Card *card)
+{
+        if(card->getValueIdentifier()== 10)
+            this->pointsMe -=1;
+        if(card->getValueIdentifier()== 11)
+            this->pointsMe -=2;
+        if(card->getValueIdentifier()== 13)
+            this->pointsMe -=3;
+        if(card->getValueIdentifier()== 4)
+            this->pointsMe +=7;
+}
 void Game::countPointsOpponent()
 {
     int gameValue = 0;
@@ -149,15 +183,9 @@ void Game::countPointsOpponent()
     {
         for (int i = 0; i<3; i++)
         {
-            this->pointsOpponent+=this->opponent[i]->getValueIdentifier() + 1;
-         /** if(this->opponent[i]->getValueIdentifier()== 10)
-            this->pointsOpponent -=1;
-          if(this->opponent[i]->getValueIdentifier()== 11)
-            this->pointsOpponent -=2;
-          if(this->opponent[i]->getValueIdentifier()== 13)
-            this->pointsOpponent -=3;
-          if(this->opponent[i]->getValueIdentifier()== 4)
-            this->pointsOpponent +=3;   **/
+            this->pointsOpponent+=this->opponent[i]->getValueIdentifier();
+          this->countSekaOpponent(this->opponent[i]);
+
         }
     }
 
@@ -166,22 +194,35 @@ void Game::countPointsOpponent()
 
 
         this->pointsOpponent=this->opponent[0]->getValueIdentifier() + this->opponent[1]->getValueIdentifier();
+                  this->countSekaOpponent(this->opponent[0]);
+          this->countSekaOpponent(this->opponent[1]);
+
 
         }
     if ((this->opponent[0]->getColorIdentifier() == this->opponent[2]->getColorIdentifier()) && (this->opponent[0]->getColorIdentifier() != this->opponent[1]->getColorIdentifier()))
-        this->pointsOpponent=this->opponent[0]->getValueIdentifier() + this->opponent[2]->getValueIdentifier();
-
+        {
+            this->pointsOpponent=this->opponent[0]->getValueIdentifier() + this->opponent[2]->getValueIdentifier();
+                            this->countSekaOpponent(this->opponent[0]);
+          this->countSekaOpponent(this->opponent[2]);
+        }
     if ((this->opponent[1]->getColorIdentifier() == this->opponent[2]->getColorIdentifier()) && (this->opponent[1]->getColorIdentifier() != this->opponent[0]->getColorIdentifier()))
-        this->pointsOpponent=this->opponent[1]->getValueIdentifier() + this->opponent[2]->getValueIdentifier();
-
+       {
+           this->pointsOpponent=this->opponent[1]->getValueIdentifier() + this->opponent[2]->getValueIdentifier();
+                           this->countSekaOpponent(this->opponent[2]);
+          this->countSekaOpponent(this->opponent[1]);
+       }
     if((this->opponent[0]->getColorIdentifier() != this->opponent[1]->getColorIdentifier()) && (this->opponent[0]->getColorIdentifier() != this->opponent[2]->getColorIdentifier()) && (this->opponent[1]->getColorIdentifier() != this->opponent[2]->getColorIdentifier()))
     {
         pointsOpponent = this->opponent[0]->getValueIdentifier();
+        int setter = 0;
         for (int i = 1; i < 3; i++)
         {
             if (this->opponent[i]->getValueIdentifier() > pointsOpponent)
-                pointsOpponent = this->opponent[i]->getValueIdentifier();
+                {pointsOpponent = this->opponent[i]->getValueIdentifier();
+                setter++;}
         }
+                        this->countSekaOpponent(this->opponent[setter]);
+
     }
 
     if ((this->opponent[0]->getValueIdentifier() == this->opponent[1]->getValueIdentifier()) && (this->opponent[0]->getValueIdentifier() == this->opponent[2]->getValueIdentifier()))
@@ -191,14 +232,16 @@ void Game::countPointsOpponent()
         if (this->opponent[0]->getValueIdentifier() == 0)
             this->pointsOpponent = 111;
     }
-
+printf("\nPointsOpponent = %i", this->pointsOpponent);
 }
 
 void Game::aiTurn()
 {
     srand(std::time(0));
     this->countPointsOpponent();
-    if((this->pointsOpponent > 10)&&(rand()%3 ==1))
+    if(this->pointsOpponent < 9 && (rand()%2 ==1))
+        this->aiPassDo();
+    if((this->pointsOpponent > 18)&&(rand()%3 ==1))
         this->raiseBetOpponent();
 
     else
@@ -207,7 +250,17 @@ void Game::aiTurn()
 
 }
 
+void Game::aiPassDo()
+{
+       this-> bankMe += this->bankThisGame;
+    this->bankThisGame = 0;
+    this->betMe = 0;
+    this->betOpponent = 0;
+    this->showCardsOpponent();
+    this->inRound = false;
+            this->win->draw(this->aiPass);
 
+}
 void Game::nextBetMeDo()
 {
     this->nextBetMe();
@@ -418,8 +471,7 @@ void Game::start()
     //betText[0].setPosition(SCREEN_WIDTH/2 - 20, SCREEN_HEIGHT - 170);
     betOpponentText.setPosition(100, 150);
     betMeText.setPosition(100, 290);
-    //betText[3].setPosition(SCREEN_WIDTH - 100, 150);
-    // betText[4].setPosition(SCREEN_WIDTH - 100, 290);
+
     bankMeText.setPosition(5, 400);
     bankThisGameText.setPosition(20, SCREEN_HEIGHT/2 - 50);
 
@@ -437,15 +489,15 @@ void Game::start()
         betText[i].setFont(font);
     }
 
-    /**
-       sf::Text test;
-       test.setCharacterSize(25);
-       test.setPosition( 20, 20);
+
+       sf::Text aiPass;
+       aiPass.setCharacterSize(40);
+       aiPass.setPosition( 700, 20);
         sf::Font testFont;
         testFont.loadFromFile("fonts/times.ttf");
-        test.setFont(testFont);
-       test.setString("TEST!!!!!!!!!");
-    **/
+        aiPass.setFont(testFont);
+       aiPass.setString("AI PASS");
+
 
 
 
@@ -508,6 +560,8 @@ void Game::start()
 
         if (this->bankMe<=0)
             {
+                            this->revealDo();
+
                 this ->endGame = true;
         this->win->draw(lose);
             }
@@ -515,6 +569,7 @@ void Game::start()
 
         if (this->bankOpponent<=0)
         {
+            this->revealDo();
                 this ->endGame = true;
                 this->win->draw(winn);
         }
@@ -526,7 +581,7 @@ void Game::start()
         this->win->draw(betMeText);
         this->win->draw(betOpponentText);
 
-        //this->win->draw(test);
+        //this->win->draw(aiPass);
         for (int i = 0; i < 5; i++)
             win->draw(betText[i]);
         this->win->draw(restartBotton->sprite);

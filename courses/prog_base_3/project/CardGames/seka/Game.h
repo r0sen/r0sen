@@ -40,6 +40,7 @@ private:
     sf::Text bankOpponentText;
     sf::Text betOpponentText;
     sf::Text betMeText;
+    sf::Text aiPass;
     sf::Text betText[5];
     int *bank;
     int bankThisGame;
@@ -77,6 +78,11 @@ private:
     void restartDo();
     void nextRound();
     void nextRoundDo();
+
+    void countSekaMe(Card *card);
+    void countSekaOpponent(Card *card);
+
+    void aiPassDo();
 
 
 };

@@ -40,5 +40,8 @@ void Card::setTexture()
     this->texture.loadFromFile("img/finish_cards_sheet.png");
     this->sprite.setTexture(this->texture);
     this->sprite.setTextureRect(sf::IntRect((float)1027/13 * (this->valueIdentifier), (float)615/5 * (this->colorIdentifier), (float)1027/13, (float)615/5 ));
+    if(this->valueIdentifier == 4)
+        this->sprite.setTextureRect(sf::IntRect(0, (float)615/5 * (this->colorIdentifier), (float)1027/13, (float)615/5 ));
+
 }
 
