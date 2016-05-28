@@ -26,10 +26,10 @@ void read_cashier(sqlite3 *db, int id, cashier_t *self, int *err){
                 break;
             }
             self->Passport = sqlite3_column_int(stmt, 0);
-            strcpy(self->fname, (const char *)sqlite3_column_text(stmt, 1));
-            strcpy(self->lname, (const char *)sqlite3_column_text(stmt, 2));
-            self->salary = sqlite3_column_int(stmt, 3);
-            self->exp = sqlite3_column_double(stmt, 4);
+            strcpy(self->name, (const char *)sqlite3_column_text(stmt, 1));
+            strcpy(self->surname, (const char *)sqlite3_column_text(stmt, 2));
+            self->cash = sqlite3_column_int(stmt, 3);
+            self->period = sqlite3_column_double(stmt, 4);
             strcpy(self->birthdate, (const char *)sqlite3_column_text(stmt, 5));
         }
     }
@@ -43,10 +43,10 @@ int create_cashier(sqlite3 *db, cashier_t *self, int *err){
     sql = "INSERT INTO cashiers VALUES (?, ?, ?, ?, ?, ?);";
     int rc = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
     sqlite3_bind_int(stmt, 1, self->Passport);
-    sqlite3_bind_text(stmt, 2, self->fname, strlen(self->fname), SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, self->lname, strlen(self->lname), SQLITE_TRANSIENT);
-    sqlite3_bind_int(stmt, 4, self->salary);
-    sqlite3_bind_double(stmt, 5, self->exp);
+    sqlite3_bind_text(stmt, 2, self->name, strlen(self->name), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 3, self->surname, strlen(self->surname), SQLITE_TRANSIENT);
+    sqlite3_bind_int(stmt, 4, self->cash);
+    sqlite3_bind_double(stmt, 5, self->period);
     sqlite3_bind_text(stmt, 6, self->birthdate, strlen(self->birthdate), SQLITE_TRANSIENT);
     if(SQLITE_OK != rc){
         *err = INVALID_REQUEST;
@@ -83,10 +83,10 @@ int update_cashier(sqlite3 *db, int id, cashier_t *self, int *err){
     sqlite3_stmt *stmt = NULL;
     const char *sql = "UPDATE cashiers SET \"First Name\" = ?, \"Last Name\" = ?, Salary = ?, \"Experience years\" = ?, \"Birth date\" = ? WHERE Passport = ?;";
     int rc = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
-    sqlite3_bind_text(stmt, 1, self->fname, strlen(self->fname), SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 2, self->lname, strlen(self->lname), SQLITE_TRANSIENT);
-    sqlite3_bind_int(stmt, 3, self->salary);
-    sqlite3_bind_double(stmt, 4, self->exp);
+    sqlite3_bind_text(stmt, 1, self->name, strlen(self->name), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 2, self->surname, strlen(self->surname), SQLITE_TRANSIENT);
+    sqlite3_bind_int(stmt, 3, self->cash);
+    sqlite3_bind_double(stmt, 4, self->period);
     sqlite3_bind_text(stmt, 5, self->birthdate, strlen(self->birthdate), SQLITE_TRANSIENT);
     sqlite3_bind_int(stmt, 6, id);
     if(SQLITE_OK != rc){
@@ -125,10 +125,10 @@ void select_cashiers(sqlite3 *db, int filter1, double filter2, int *err){
                 break;
             }
             self->Passport = sqlite3_column_int(stmt, 0);
-            self->fname = (const char *)sqlite3_column_text(stmt, 1);
-            self->lname = (const char *)sqlite3_column_text(stmt, 2);
-            self->salary = sqlite3_column_int(stmt, 3);
-            self->exp = sqlite3_column_double(stmt, 4);
+            self->name = (const char *)sqlite3_column_text(stmt, 1);
+            self->surname = (const char *)sqlite3_column_text(stmt, 2);
+            self->cash = sqlite3_column_int(stmt, 3);
+            self->period = sqlite3_column_double(stmt, 4);
             self->birthdate = (const char *)sqlite3_column_text(stmt, 5);
             print_cashier(self);
             free(self);

@@ -11,10 +11,10 @@ typedef struct list_s list_t;
 
 typedef struct cashier_s{
     int Passport;
-    char *fname;
-    char *lname;
-    int salary;
-    double exp;
+    char *name;
+    char *surname;
+    int cash;
+    double period;
     char *birthdate;
 }cashier_t;
 
