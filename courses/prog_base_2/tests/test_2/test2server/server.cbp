@@ -48,6 +48,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="cashiers.h" />
+		<Unit filename="cashiers_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -62,10 +66,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="socket.h" />
-		<Unit filename="teachers_list.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="teahers.h" />
 		<Unit filename="xmlprocess.c">
 			<Option compilerVar="CC" />
 		</Unit>
