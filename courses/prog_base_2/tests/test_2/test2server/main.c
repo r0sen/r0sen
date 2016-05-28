@@ -3,10 +3,11 @@
 #include <string.h>
 
 #include "server.h"
+#include "http.h"
 
 int main(void){
     list_t *cashiers = list_new();
-    http_request_startServer(cashiers);
+    startServer(cashiers);
     list_free(cashiers);
     return 0;
 }

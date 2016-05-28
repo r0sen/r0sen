@@ -6,14 +6,16 @@
 
 #include "server.h"
 
-typedef enum resp_s{HTML, XML}resp_t;
+typedef enum enumeratorStatus {HTML, XML} resp_t;
 
-struct keyvalue_s{
+struct keyvalue_s
+{
     char key[256];
     char value[256];
 };
 
-struct http_request_s{
+struct http_request_s
+{
     char method[8];
     char uri[256];
     keyvalue_t * form;
@@ -21,7 +23,8 @@ struct http_request_s{
 };
 
 http_request_t
-http_request_parse(const char * const request) {
+http_parse(const char * const request)
+{
     http_request_t req;
     req.form = NULL;
     req.formLength = 0;
@@ -40,9 +43,11 @@ http_request_parse(const char * const request) {
     const char * cur = bodyStartPtr;
     const char * pairEndPtr = cur;
     const char * eqPtr = cur;
-    while (strlen(cur) > 0) {
+    while (strlen(cur) > 0)
+    {
         pairEndPtr = strchr(cur, '&');
-        if (NULL == pairEndPtr) {
+        if (NULL == pairEndPtr)
+        {
             pairEndPtr = cur + strlen(cur);
         }
         keyvalue_t kv;
@@ -66,33 +71,179 @@ http_request_parse(const char * const request) {
 }
 
 const char *
-http_request_getArg(http_request_t * self, const char * key) {
-    for (int i = 0; i < self->formLength; i++) {
-        if (strcmp(self->form[i].key, key) == 0) {
+http_request(http_request_t * self, const char * key)
+{
+    for (int i = 0; i < self->formLength; i++)
+    {
+        if (strcmp(self->form[i].key, key) == 0)
+        {
             return self->form[i].value;
         }
     }
     return NULL;
 }
 
-const char * keyvalue_toString(keyvalue_t * self) {
+const char * keyvalue_toString(keyvalue_t * self)
+{
     char * str = malloc(sizeof(char) * (strlen(self->key) + strlen(self->value) + 2));
     sprintf(str, "%s=%s\0", self->key, self->value);
     return str;
 }
-
-void http_request_startServer(list_t *list){
+char *resp_form(resp_t type, char *usermsg, int code, char *buffer)
+{
+    char msg[MSG_LENGTH];
+    if(type == XML)
+    {
+        switch(code)
+        {
+        case 200:
+        {
+            sprintf(buffer,
+                    "HTTP/1.1 200 OK\n"
+                    "Content-length: %zu\n"
+                    "Content-type: application/xml\n"
+                    "\n"
+                    "%s\0", strlen(usermsg), usermsg);
+            break;
+        }
+        case 403:
+        {
+            sprintf(msg, "<message>\n"
+                    "\t<status>ERROR</status>\n"
+                    "<text>Error 403: forbidden</text>"
+                    "</message>");
+            sprintf(buffer,
+                    "HTTP/1.1 403 Error\n"
+                    "Content-length: %zu\n"
+                    "Content-type: application/xml\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        }
+        case 404:
+        {
+            sprintf(msg, "<message>\n"
+                    "\t<status>ERROR</status>\n"
+                    "<text>Error 404: not found</text>"
+                    "</message>");
+            sprintf(buffer,
+                    "HTTP/1.1 403 Error\n"
+                    "Content-length: %zu\n"
+                    "Content-type: application/xml\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        }
+        default:
+        {
+            sprintf(msg, "<message>\n"
+                    "\t<status>ERROR</status>\n"
+                    "<text>Error 502: bad gateway</text>"
+                    "</message>");
+            sprintf(buffer,
+                    "HTTP/1.1 502 Error\n"
+                    "Content-length: %zu\n"
+                    "Content-type: application/xml\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        }
+        }
+    }
+    else if (type == HTML)
+    {
+        switch(code)
+        {
+        case 200:
+            sprintf(msg, "<!DOCTYPE html>"
+                    "<html>"
+                    "<head>"
+                    "<title></title>" //!REMEMBER TO SET YOUR TITLE!
+                    "</title>"
+                    "</head>"
+                    "<body>"
+                    "%s"
+                    "</body>"
+                    "</html>");
+            sprintf(buffer,
+                    "HTTP/1.1 200 OK\n"
+                    "Content-length: %zu\n"
+                    "Content-type: text/html\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        case 403:
+            sprintf(msg, "<!DOCTYPE html>"
+                    "<html>"
+                    "<head>"
+                    "<title>403 forbidden</title>" //!REMEMBER TO SET YOUR TITLE!
+                    "</title>"
+                    "</head>"
+                    "<body>"
+                    "<h3>Error 403: forbidden</h3>"
+                    "</body>"
+                    "</html>");
+            sprintf(buffer,
+                    "HTTP/1.1 403 Error\n"
+                    "Content-length: %zu\n"
+                    "Content-type: text/html\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        case 404:
+            sprintf(msg, "<!DOCTYPE html>"
+                    "<html>"
+                    "<head>"
+                    "<title>404 not found</title>" //!REMEMBER TO SET YOUR TITLE!
+                    "</title>"
+                    "</head>"
+                    "<body>"
+                    "<h3>Error 404: not found</h3>"
+                    "</body>"
+                    "</html>");
+            sprintf(buffer,
+                    "HTTP/1.1 404 Error\n"
+                    "Content-length: %zu\n"
+                    "Content-type: text/html\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        default:
+            sprintf(msg, "<!DOCTYPE html>"
+                    "<html>"
+                    "<head>"
+                    "<title>502 bad gateway</title>" //!REMEMBER TO SET YOUR TITLE!
+                    "</title>"
+                    "</head>"
+                    "<body>"
+                    "<h3>Error 502: bad gateway</h3>"
+                    "</body>"
+                    "</html>");
+            sprintf(buffer,
+                    "HTTP/1.1 502 Error\n"
+                    "Content-length: %zu\n"
+                    "Content-type: text/html\n"
+                    "\n"
+                    "%s\0", strlen(msg), msg);
+            break;
+        }
+    }
+    return buffer;
+}
+void startServer(list_t *list)
+{
     lib_init();
     socket_t * serverSocket = socket_new();
     socket_bind(serverSocket, 5000);
     socket_listen(serverSocket);
-    while(1){
+    while(1)
+    {
         puts("Waiting for connections");
         socket_t * clientSocket = socket_accept(serverSocket);
-        puts("New client");
         char buff[BUFFER_LENGTH];
         int readLength = socket_read(clientSocket, buff, BUFFER_LENGTH);
-        if(readLength == 0){
+        if(readLength == 0)
+        {
             socket_close(clientSocket);
             socket_free(clientSocket);
             puts("Skipping empty request");
@@ -101,16 +252,74 @@ void http_request_startServer(list_t *list){
 
         printf("Got Request:\n---------------\n%s\n----------------\n", buff);
 
-        http_request_t req = http_request_parse(buff);
+        http_request_t req = http_parse(buff);
 
         printf("Method: %s\nURI: %s\n", req.method, req.uri);
         puts("Data:");
-        for(int i = 0; i < req.formLength; i++){
+        for(int i = 0; i < req.formLength; i++)
+        {
             char * kvStr = keyvalue_toString(&req.form[i]);
             printf("\t%s\n", kvStr);
             free(kvStr);
         }
-        http_request_chooseMethod(req, clientSocket, list);
+
+
+   if(!strcmp(req.uri, "/"))
+    {
+        char smallMSG[100];
+        sprintf(smallMSG, "<h1>HELLO ALL!!!</h1>");
+        char result_msg[MSG_LENGTH];
+        //resp_form(HTML, smallMSG, 200, result_msg);
+                    sprintf(result_msg,
+                    "HTTP/1.1 200 OK\n"
+                    "Content-length: %zu\n"
+                    "Content-type: application/xml\n"
+                    "\n"
+                    "%s\0", strlen(smallMSG), smallMSG);
+        socket_write_string(clientSocket, result_msg);
+    }
+    else if(!strcmp(req.uri, "/info"))
+    {
+        char result_msg[MSG_LENGTH];
+        resp_form(XML, first_task_func(), 200, result_msg);
+
+        socket_write_string(clientSocket, result_msg);
+    }
+
+    else if (!strcmp(req.uri, "/external"))
+        {
+        static const char * requestFormat =
+        "%s %s HTTP/1.1\r\n"
+        "Content-Type: text\r\n"
+        "Content-Length: %zu\r\n\r\n"
+        "%s";
+        socket_t* serverSock = socket_new ();
+        socket_connect(serverSock, "216.58.209.49", 80);
+        char uri [256];
+        strcpy (uri, "http://pb-homework.appspot.com/test/var/5?format=xml");
+        char req [1024];
+        sprintf (req, requestFormat, "GET", uri, NULL, NULL, NULL);
+        socket_write(serverSock, req, strlen (req));
+        char responce [1024];
+        socket_read (serverSock, responce, 1024);
+        int contentLength = 0;
+        sscanf (strstr(responce, "Content-Length: ") + strlen ("Content-Length: "), "%d", &contentLength);
+        char* data = strstr (responce, "\r\n\r\n") + 4;
+        socket_free(serverSock);
+        data = second_task_func(data);
+        char result_msg[MSG_LENGTH];
+        resp_form(XML, data, 200, result_msg);
+
+        socket_write_string(clientSocket, result_msg);
+        }
+    else
+    {
+        char result_msg[MSG_LENGTH];
+        resp_form(XML, NULL, 404, result_msg);
+        socket_write_string(clientSocket, result_msg);
+        return;
+    }
+
         socket_close(clientSocket);
         socket_free(clientSocket);
     }
@@ -119,159 +328,15 @@ void http_request_startServer(list_t *list){
     lib_free();
 }
 
-char *resp_form(resp_t type, char *usermsg, int code, char *buffer){
-    char msg[MSG_LENGTH];
-    if(type == XML){
-        switch(code){
-        case 200:
-            {
-                sprintf(buffer,
-                        "HTTP/1.1 200 OK\n"
-                        "Content-length: %zu\n"
-                        "Content-type: application/xml\n"
-                        "\n"
-                        "%s\0", strlen(usermsg), usermsg);
-                break;
-            }
-        case 403:
-            {
-                sprintf(msg, "<message>\n"
-                        "\t<status>ERROR</status>\n"
-                        "<text>Error 403: forbidden</text>"
-                        "</message>");
-                sprintf(buffer,
-                        "HTTP/1.1 403 Error\n"
-                        "Content-length: %zu\n"
-                        "Content-type: application/xml\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-            }
-        case 404:
-            {
-                sprintf(msg, "<message>\n"
-                        "\t<status>ERROR</status>\n"
-                        "<text>Error 404: not found</text>"
-                        "</message>");
-                sprintf(buffer,
-                        "HTTP/1.1 403 Error\n"
-                        "Content-length: %zu\n"
-                        "Content-type: application/xml\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-            }
-        default:
-            {
-                sprintf(msg, "<message>\n"
-                        "\t<status>ERROR</status>\n"
-                        "<text>Error 502: bad gateway</text>"
-                        "</message>");
-                sprintf(buffer,
-                        "HTTP/1.1 502 Error\n"
-                        "Content-length: %zu\n"
-                        "Content-type: application/xml\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-            }
-        }
-    } else if (type == HTML){
-        switch(code){
-            case 200:
-                sprintf(msg, "<!DOCTYPE html>"
-                        "<html>"
-                        "<head>"
-                            "<title></title>" //!REMEMBER TO SET YOUR TITLE!
-                        "</title>"
-                        "</head>"
-                        "<body>"
-                        "%s"
-                        "</body>"
-                        "</html>");
-                sprintf(buffer,
-                        "HTTP/1.1 200 OK\n"
-                        "Content-length: %zu\n"
-                        "Content-type: text/html\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-            case 403:
-                sprintf(msg, "<!DOCTYPE html>"
-                        "<html>"
-                        "<head>"
-                            "<title>403 forbidden</title>" //!REMEMBER TO SET YOUR TITLE!
-                        "</title>"
-                        "</head>"
-                        "<body>"
-                        "<h3>Error 403: forbidden</h3>"
-                        "</body>"
-                        "</html>");
-                sprintf(buffer,
-                        "HTTP/1.1 403 Error\n"
-                        "Content-length: %zu\n"
-                        "Content-type: text/html\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-            case 404:
-                sprintf(msg, "<!DOCTYPE html>"
-                        "<html>"
-                        "<head>"
-                            "<title>404 not found</title>" //!REMEMBER TO SET YOUR TITLE!
-                        "</title>"
-                        "</head>"
-                        "<body>"
-                        "<h3>Error 404: not found</h3>"
-                        "</body>"
-                        "</html>");
-                sprintf(buffer,
-                        "HTTP/1.1 404 Error\n"
-                        "Content-length: %zu\n"
-                        "Content-type: text/html\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-            default:
-                sprintf(msg, "<!DOCTYPE html>"
-                        "<html>"
-                        "<head>"
-                            "<title>502 bad gateway</title>" //!REMEMBER TO SET YOUR TITLE!
-                        "</title>"
-                        "</head>"
-                        "<body>"
-                        "<h3>Error 502: bad gateway</h3>"
-                        "</body>"
-                        "</html>");
-                sprintf(buffer,
-                        "HTTP/1.1 502 Error\n"
-                        "Content-length: %zu\n"
-                        "Content-type: text/html\n"
-                        "\n"
-                        "%s\0", strlen(msg), msg);
-                break;
-        }
-    }
-    return buffer;
-}
 
-void http_request_chooseMethod(http_request_t req, socket_t * clientSocket, list_t *list){
-    if(!strcmp(req.uri, "/")){
-        char smallMSG[100];
-        sprintf(smallMSG, "<h1>HELLO ALL!!!</h1>");
-        char result_msg[MSG_LENGTH];
-        resp_form(HTML, smallMSG, 200, result_msg);
-        socket_write_string(clientSocket, result_msg);
+void server_sent(socket_t* clientSocket, char* text)
+    {
+        char buf[10000];
+        sprintf(buf,"\nHTTP1.1 200 OK\n"
+                "Content-Type: application/json\n"
+                "Content-Length: %i\r\n\r\n"
+                "%s\n",strlen(text),text);
+        socket_write_string(clientSocket,buf);
     }
-    else if(!strcmp(req.uri, "/info")){
-        char result_msg[MSG_LENGTH];
-        resp_form(XML, mine_to_message(), 200, result_msg);
-        socket_write_string(clientSocket, result_msg);
-    }else{
-        char result_msg[MSG_LENGTH];
-        resp_form(XML, NULL, 404, result_msg);
-        socket_write_string(clientSocket, result_msg);
-        return;
-    }
-}
+
 
