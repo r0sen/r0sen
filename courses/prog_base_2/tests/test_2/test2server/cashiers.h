@@ -9,14 +9,15 @@
 typedef struct list_s list_t;
 
 
-typedef struct cashier_s{
+typedef struct cashier_s
+{
     int Passport;
     char *name;
     char *surname;
     int cash;
     double period;
     char *birthdate;
-}cashier_t;
+} cashier_t;
 
 //cashiers_list
 cashier_t *new_cashier(void);

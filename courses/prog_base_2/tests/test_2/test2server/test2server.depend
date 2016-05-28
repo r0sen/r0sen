@@ -282,7 +282,7 @@
 	<string.h>
 	"teahers.h"
 
-1464429043 source:c:\users\Администратор\desktop\test2e\test2server\xmlprocess.c
+1464432209 source:c:\users\Администратор\desktop\test2e\test2server\xmlprocess.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -414,7 +414,7 @@
 	<libxml/parser.h>
 	<libxml/encoding.h>
 
-1464431968 c:\users\Администратор\desktop\test2e\test2server\cashiers.h
+1464432063 c:\users\Администратор\desktop\test2e\test2server\cashiers.h
 
 1464429043 source:c:\users\Администратор\desktop\test2e\test2server\cashiers_list.c
 	<stdlib.h>
