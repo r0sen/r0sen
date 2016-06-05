@@ -3,7 +3,7 @@
 #include "card.h"
 class Deck{
 	private:
-		Card card[64];
+		Card card[48];
 		int pos;
 
 	public:

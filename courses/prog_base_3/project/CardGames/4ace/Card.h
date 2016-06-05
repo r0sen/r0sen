@@ -11,9 +11,6 @@ class Card
 		short int valueIdentifier;
 		short int colorIdentifier;
 
-
-
-
 	public:
 	    Card();
 
