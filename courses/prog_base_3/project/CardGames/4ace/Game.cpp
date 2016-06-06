@@ -383,7 +383,7 @@ void Game::start()
                         restartGame();
 
                     }
-                    else if(!((event.mouseButton.x > 765) && ( event.mouseButton.x < 900) && (event.mouseButton.y > 444) && (event.mouseButton.y < 533)))
+                    else if(!((event.mouseButton.x > 100) && ( event.mouseButton.x < 180) && (event.mouseButton.y > 100) && (event.mouseButton.y < 272)) && !((event.mouseButton.x > 300) && ( event.mouseButton.x < 380) && (event.mouseButton.y > 100) && (event.mouseButton.y < 272)) && !((event.mouseButton.x > 100) && ( event.mouseButton.x < 180) && (event.mouseButton.y > 330) && (event.mouseButton.y < 502))&& !((event.mouseButton.x > 300) && ( event.mouseButton.x < 380) && (event.mouseButton.y > 330) && (event.mouseButton.y < 502))&& !((event.mouseButton.x > 765) && ( event.mouseButton.x < 900) && (event.mouseButton.y > 444) && (event.mouseButton.y < 533)))
                     {
                         missedClick();
                         //deck1Accept();
