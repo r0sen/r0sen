@@ -2,7 +2,7 @@
 #define CARD_H
 #include <string>
 #include <SFML/Graphics.hpp>
-
+#pragma once
 using namespace sf;
 
 class Card

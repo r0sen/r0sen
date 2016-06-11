@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CardGames" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/CardGames" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DSFML_STATIC" />
+					<Add directory="sfml/include" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-system-d" />
+					<Add directory="sfml/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/CardGames" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="sfml/include" />
+		</Compiler>
+		<Linker>
+			<Add directory="sfml/lib" />
+		</Linker>
+		<Unit filename="100/Deck100.cpp" />
+		<Unit filename="100/Deck100.h" />
+		<Unit filename="100/FourthGame.cpp" />
+		<Unit filename="100/FourthGame.h" />
+		<Unit filename="21/Card.cpp" />
+		<Unit filename="21/Card.h" />
+		<Unit filename="21/Consts.h" />
+		<Unit filename="21/Deck.cpp" />
+		<Unit filename="21/Deck.h" />
+		<Unit filename="21/EndBotton.cpp" />
+		<Unit filename="21/EndBotton.h" />
+		<Unit filename="21/FirstGame.cpp" />
+		<Unit filename="21/FirstGame.h" />
+		<Unit filename="21/NextBotton.cpp" />
+		<Unit filename="21/NextBotton.h" />
+		<Unit filename="21/RestartBotton.cpp" />
+		<Unit filename="21/RestartBotton.h" />
+		<Unit filename="4ace/Deck4Ace.cpp" />
+		<Unit filename="4ace/Deck4Ace.h" />
+		<Unit filename="4ace/ThirdGame.cpp" />
+		<Unit filename="4ace/ThirdGame.h" />
+		<Unit filename="9val/DeckFifth.cpp" />
+		<Unit filename="9val/DeckFifth.h" />
+		<Unit filename="9val/FifthGame.cpp" />
+		<Unit filename="9val/FifthGame.h" />
+		<Unit filename="FifthGameBotton.cpp" />
+		<Unit filename="FifthGameBotton.h" />
+		<Unit filename="FirstGameBotton.cpp" />
+		<Unit filename="FirstGameBotton.h" />
+		<Unit filename="FourthGameBotton.cpp" />
+		<Unit filename="FourthGameBotton.h" />
+		<Unit filename="SecondGameBotton.cpp" />
+		<Unit filename="SecondGameBotton.h" />
+		<Unit filename="ThirdGameBotton.cpp" />
+		<Unit filename="ThirdGameBotton.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="seka/DeckSeka.cpp" />
+		<Unit filename="seka/DeckSeka.h" />
+		<Unit filename="seka/EndBottonSeka.cpp" />
+		<Unit filename="seka/EndBottonSeka.h" />
+		<Unit filename="seka/NextBottonSeka.cpp" />
+		<Unit filename="seka/NextBottonSeka.h" />
+		<Unit filename="seka/NextRoundBottonSeka.cpp" />
+		<Unit filename="seka/NextRoundBottonSeka.h" />
+		<Unit filename="seka/PassBottonSeka.cpp" />
+		<Unit filename="seka/PassBottonSeka.h" />
+		<Unit filename="seka/RaiseBottonSeka.cpp" />
+		<Unit filename="seka/RaiseBottonSeka.h" />
+		<Unit filename="seka/RepeatBottonSeka.cpp" />
+		<Unit filename="seka/RepeatBottonSeka.h" />
+		<Unit filename="seka/RestartBottonSeka.cpp" />
+		<Unit filename="seka/RestartBottonSeka.h" />
+		<Unit filename="seka/RevealBottonSeka.cpp" />
+		<Unit filename="seka/RevealBottonSeka.h" />
+		<Unit filename="seka/SecondGame.cpp" />
+		<Unit filename="seka/SecondGame.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

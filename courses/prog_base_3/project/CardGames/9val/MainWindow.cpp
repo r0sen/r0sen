@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "FifthGame.h"
 
 int main()
 {
@@ -6,7 +6,7 @@ int main()
 
     RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "9val");
     printf("!\n");
-    Game* game = new Game(&win);
+    FifthGame* game = new FifthGame(&win);
       printf("!\n");
 
     game->start();

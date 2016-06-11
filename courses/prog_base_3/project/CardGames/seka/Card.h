@@ -10,7 +10,7 @@ class Card
 	private:
 		short int valueIdentifier;
 		short int colorIdentifier;
-
+		std::string imagePath;
 
 
 
@@ -19,9 +19,9 @@ class Card
 
 	    bool isClicked(int x, int y);
 		short int getValueIdentifier();
-
+		std::string getImagePath();
 		void setValueIdentifier(short int valueInput);
-
+		void setImagePath(std::string pathInput);
 		void drawOnScreen();
 		short int getColorIdentifier();
 		void setColorIdentifier(short int id);
