@@ -2,6 +2,7 @@
 #define CARD_H
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #pragma once
 using namespace sf;
 

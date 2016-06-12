@@ -1,7 +1,7 @@
 #include "ThirdGame.h"
 #include <sstream>
 #include <iostream>
-
+#include <SFML/Audio.hpp>
 
 //bool counter;
 ThirdGame::ThirdGame(RenderWindow* winInput)
@@ -226,6 +226,14 @@ void ThirdGame::restartGame()
 }
 void ThirdGame::start()
 {
+
+    sf::Music music;
+    if (!music.openFromFile("sounds/5.ogg"))
+    {
+        return; // error
+    }
+    music.play();
+    music.setLoop(true);
 
     this->deck = new Deck4Ace();
     this->deck->putRandom();

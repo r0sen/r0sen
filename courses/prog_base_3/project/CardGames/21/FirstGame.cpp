@@ -25,7 +25,13 @@ FirstGame::FirstGame(RenderWindow* winInput)
 void FirstGame::start()
 {
 
-
+    sf::Music music;
+    if (!music.openFromFile("sounds/3.ogg"))
+    {
+        return; // error
+    }
+    music.play();
+    music.setLoop(true);
     this->deck = new Deck();
     deck->putRandom();
     Texture cardTexture;

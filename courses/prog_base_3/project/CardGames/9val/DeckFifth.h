@@ -1,15 +1,15 @@
 #ifndef DECKFIFTH_H
 #define DECKFIFTH_H
-#include "card.h"
+#include "CardVal.h"
 class DeckFifth{
 	private:
-		Card card[48];
+		CardVal card[48];
 		int pos;
 
 	public:
 	    DeckFifth();
 		void putRandom();
-		Card getCard();
+		CardVal getCard();
 
 };
 #endif

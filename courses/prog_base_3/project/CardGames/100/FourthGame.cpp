@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include <windows.h>
-
+#include <SFML/Audio.hpp>
 //bool counter;
 FourthGame::FourthGame(RenderWindow* winInput)
 {
@@ -450,6 +450,14 @@ void FourthGame::testForWin()
 
 void FourthGame::start()
 {
+
+    sf::Music music;
+    if (!music.openFromFile("sounds/2.ogg"))
+    {
+        return; // error
+    }
+    music.play();
+    music.setLoop(true);
 
     this->deck = new Deck100();
     this->deck->putRandom();

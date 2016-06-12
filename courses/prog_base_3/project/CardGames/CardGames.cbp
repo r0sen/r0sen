@@ -9,7 +9,7 @@
 			<Target title="Debug">
 				<Option output="bin/Debug/CardGames" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -45,6 +45,10 @@
 			<Add directory="sfml/include" />
 		</Compiler>
 		<Linker>
+			<Add library="sfml-audio" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+			<Add library="sfml-graphics" />
 			<Add directory="sfml/lib" />
 		</Linker>
 		<Unit filename="100/Deck100.cpp" />
@@ -68,6 +72,8 @@
 		<Unit filename="4ace/Deck4Ace.h" />
 		<Unit filename="4ace/ThirdGame.cpp" />
 		<Unit filename="4ace/ThirdGame.h" />
+		<Unit filename="9val/CardVal.cpp" />
+		<Unit filename="9val/CardVal.h" />
 		<Unit filename="9val/DeckFifth.cpp" />
 		<Unit filename="9val/DeckFifth.h" />
 		<Unit filename="9val/FifthGame.cpp" />

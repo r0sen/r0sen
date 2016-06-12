@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include <windows.h>
-
+#include <SFML/Audio.hpp>
 //bool counter;
 FifthGame::FifthGame(RenderWindow* winInput)
 {
@@ -14,6 +14,7 @@ FifthGame::FifthGame(RenderWindow* winInput)
 
     bankTotal = 200;
     bit = 0;
+    inHelp = false;
 
 }
 
@@ -144,17 +145,31 @@ void FifthGame::nextRound2()
 
 void FifthGame::start()
 {
+       /* sf::Music music;
+    if (!music.openFromFile("sounds/8.ogg"))
+    {
+        return; // error
+    }*/
 printf("9VAL\n");
     //this->deck = new DeckFifth();
-    this->deck->putRandom();
+   // this->deck->putRandom();
+    this->deck2 = new DeckFifth();
     //this->deck2 = new DeckFifth();
+    //this->deck2->putRandom();
+    //this->deck2->putRandom();
     this->deck2->putRandom();
-    this->deck2->putRandom();
-    this->deck2->putRandom();
+
+//   CardVal myCard = new CardVal();
+    //CardVal myCard = new CardVal();
+    //myCard = deck2->getCard();
+
+    myCard = deck->getCard();
+        myCard.setTexture();
+
+    myCard.sprite.setPosition(400,200);
 
 
 
-    myCard = deck2->getCard();
 
 
     for(int i = 0; i<9; i++)
@@ -168,17 +183,25 @@ printf("9VAL\n");
         table[i].sprite.scale(sf::Vector2f(0.85f, 0.85f));
 
     }
+
     table[0].sprite.setPosition(10, 2);
+
     table[1].sprite.setPosition(80, 2);
+
     table[2].sprite.setPosition(10, 108);
+
     table[3].sprite.setPosition(80, 108);
     table[4].sprite.setPosition(10, 214);
     table[5].sprite.setPosition(80, 214);
     table[6].sprite.setPosition(10, 320);
+
     table[7].sprite.setPosition(80, 320);
+
     table[8].sprite.setPosition(10, 426);
-    myCard.setTexture();
-    myCard.sprite.setPosition(400,200);
+printf("9VAL\n");
+
+
+
     Sprite background;
     Texture backTexture;
     backTexture.loadFromFile("img/wood-texture.jpg");
@@ -232,13 +255,26 @@ printf("9VAL\n");
     nexta.setTexture(nextat);
     nexta.setPosition(665, 444);
 
+    Sprite help;
+    Texture helpt;
+    helpt.loadFromFile("img/help5.png");
+    help.setTexture(helpt);
+    help.setPosition(0, 0);
+
+
+
 
     bankTotalText.setCharacterSize(24);
     bankTotalText.setPosition(400, 400);
     sf::Font font;
     font.loadFromFile("fonts/times.ttf");
     bankTotalText.setFont(font);
+    helpText.setCharacterSize(16);
+    helpText.setPosition(750, 10);
 
+    font.loadFromFile("fonts/times.ttf");
+    helpText.setFont(font);
+    helpText.setString("Press TAB to HELP");
 printf("9VAL\n");
 
 
@@ -252,8 +288,9 @@ printf("9VAL\n");
 printf("9VAL\n");
 
     while (this->win->isOpen())
-    {
-     printf("9VAL\n");
+    {printf("9VAL\n");
+
+    printf("9VAL\n");
 
      Event event;
         printf("9VAL\n");
@@ -262,10 +299,26 @@ printf("9VAL\n");
         {
             if (event.type == Event::Closed)
                 this->win->close();
+
+
+                 if (event.type == Event::KeyPressed)
+            {
+                if ((event.key.code == Keyboard::Tab))
+                {
+                    if(!inHelp)
+                        {inHelp = true;
+                        continue;}
+                    if(inHelp)
+                        inHelp = false;
+
+
+                }
+            }
             else if (event.type == sf::Event::MouseButtonPressed)
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
+                    if(inHelp == false){
                     if(!gameWin && !gameLose){
                     if(roundEnded == false)
                     {
@@ -295,7 +348,7 @@ printf("9VAL\n");
                         this->restart();
                     }
                 }
-            }
+            }}
 
             this->win->clear();
             this->win->draw(background);
@@ -340,14 +393,17 @@ printf("9VAL\n");
 
 
 
+      if(inHelp== true)
+            this->win->draw(help);
+            this->win->draw(helpText);
 
-
+            this->win->display();
 
         }
-            this->win->display();
 
 
     }
+
 }
 
 void FifthGame::refreshText()

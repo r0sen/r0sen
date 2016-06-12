@@ -1,4 +1,4 @@
-#include "Card.h"
+#include "CardVal.h"
 #include "DeckFifth.h"
 #include <map>   
 #include <string.h>
@@ -22,9 +22,9 @@ public:
     void start();
 private:
 
-    DeckFifth *deck;
+DeckFifth *deck;
 DeckFifth *deck2;
-Card myCard;
+CardVal myCard;
     RenderWindow* win;
 
     int bankTotal;
@@ -33,7 +33,7 @@ sf::Text bankTotalText;
     int bit;
 sf::Text bitText;
 
-Card table[9];
+CardVal table[9];
 void refreshText();
 
 void restart();
@@ -45,4 +45,7 @@ void bitSet();
 void nextRound2();
 bool gameWin;
 bool gameLose;
+bool    inHelp;
+Text helpText;
+
 };

@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <stdio.h>
 #include <stdio.h>
@@ -45,6 +46,21 @@ void posix_death_signal(int signum)
 
 int main()
 {
+
+    Sprite hello;
+    Texture hellot;
+    hellot.loadFromFile("img/hello.png");
+    hello.setTexture(hellot);
+    hello.setPosition(100, 5);
+        /*sf::Music music;
+    if (!music.openFromFile("sounds/8.ogg"))
+    {
+        //return; // error
+    }
+    music.play();
+    music.setLoop(true);*/
+
+
     	signal(SIGSEGV, posix_death_signal);
     sf::RenderWindow window(sf::VideoMode(900, 533), "Card games", sf::Style::Close);
 
@@ -79,7 +95,7 @@ int main()
                 if (firstGameBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
                 {
                     window.setVisible(0);
-                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "21 for fun!!!");
+                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "21 for fun!!!", sf::Style::Close);
 
                     FirstGame * firstGame = new FirstGame(&win);
                     firstGame->start();
@@ -90,7 +106,7 @@ int main()
                 if (secondGameBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
                 {
                     window.setVisible(0);
-                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Seka");
+                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Seka", sf::Style::Close);
 
                     SecondGame * secondGame = new SecondGame(&win);
                     secondGame->start();
@@ -100,7 +116,7 @@ int main()
                 if (thirdGameBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
                 {
                     window.setVisible(0);
-                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "4 Ace");
+                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "4 Ace", sf::Style::Close);
 
                     ThirdGame * thirdGame = new ThirdGame(&win);
                     thirdGame->start();
@@ -111,22 +127,22 @@ int main()
                 if (fourthGameBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
                 {
                     window.setVisible(0);
-                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "100");
+                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "100", sf::Style::Close);
 
                     FourthGame * fourthGame = new FourthGame(&win);
                     fourthGame->start();
                     window.setVisible(1);
                 }
 
-                /*if (fifthGameBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
+                if (fifthGameBotton->isPressed(event.mouseButton.x, event.mouseButton.y))
                 {
                     window.setVisible(0);
-                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "9 Val");
+                    RenderWindow win(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "9 Val",sf::Style::Close);
 
                     FifthGame *fifthGame = new FifthGame(&win);
                     fifthGame->start();
                     window.setVisible(1);
-                }*/
+                }
             }
         }
         window.clear();
@@ -136,7 +152,8 @@ int main()
         window.draw(secondGameBotton->sprite);
         window.draw(thirdGameBotton->sprite);
         window.draw(fourthGameBotton->sprite);
-       // window.draw(fifthGameBotton->sprite);
+       window.draw(fifthGameBotton->sprite);
+       window.draw(hello);
 
         window.display();
     }

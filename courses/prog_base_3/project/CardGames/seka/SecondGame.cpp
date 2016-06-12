@@ -1,6 +1,7 @@
 #include "SecondGame.h"
 #include <sstream>
 #include <iostream>
+#include <SFML/Audio.hpp>
 
 
 bool counter;
@@ -386,6 +387,14 @@ void SecondGame::restartDo()
 
 void SecondGame::start()
 {
+
+    sf::Music music;
+    if (!music.openFromFile("sounds/6.ogg"))
+    {
+        return; // error
+    }
+    music.play();
+    music.setLoop(true);
 
     //bank = 0;
     for (int i = 0; i < 5; i++)

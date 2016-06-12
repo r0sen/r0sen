@@ -22,7 +22,7 @@ DeckFifth::DeckFifth()
 void DeckFifth::putRandom()
 {
     srand(std::time(0));
-	Card cardSwipe;
+	CardVal cardSwipe;
 	int id1, id2;
 	for (int i = 0; i < 100; i++)
 	{
@@ -34,7 +34,7 @@ void DeckFifth::putRandom()
 	}
 }
 
-Card DeckFifth::getCard()
+CardVal DeckFifth::getCard()
 {
     if(pos == 8)
         {
