@@ -2,21 +2,25 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="second" />
+		<Option title="testLib" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/second" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/testLib" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="..\libOSlib\bin\Debug\libOSlib.a" />
+					<Add directory="../libOSlib/bin/Debug" />
+				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/second" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/testLib" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -38,7 +42,6 @@
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

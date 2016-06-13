@@ -1,8 +1,14 @@
 # depslib dependency file v1.0
-1465812267 source:c:\users\Администратор\desktop\ОП\perezdach\first\main.c
+1465819300 source:c:\users\Администратор\desktop\ОП\perezdach\first\main.c
+	<stdio.h>
+	<stdlib.h>
+	<strings.h>
+	<ctype.h>
+	<windows.h>
 	<stdlib.h>
 	<stdarg.h>
 	<stddef.h>
 	<setjmp.h>
+	<cmocka_pbc.h>
 	<cmocka.h>
 

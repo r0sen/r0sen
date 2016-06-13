@@ -35,11 +35,11 @@ void user_print(user_t *user);
 void program_print(program_t *program);
 
 // Other
-void os_addProgram(program_t *program);
+void os_addProgram(os_t *os, program_t *program);
 
 // Task #1
 int os_getUsersCount(const os_t *os);
-user_t *getUsersList(const os_t *os);
+user_t **getUsersList(os_t *os);
 // Task #2
 void os_newUser(os_t *os, user_t *newUser);
 // Task #3
@@ -50,13 +50,14 @@ void os_logUserIn(os_t *os, int userId);
 void os_logUserOut(os_t *os, int userId);
 // Task #6
 int os_getActiveUsersCount(const os_t *os);
-user_t *os_getActiveUsersList(const os_t *os);
+user_t **os_getActiveUsersList(const os_t *os);
 // Task #7
 int os_getProgramsCount(const os_t *os);
-program_t *os_getProgramsList(const os_t *os);
+program_t **os_getProgramsList(os_t *os);
 // Task #8
 void os_turnOnProgram(os_t *os, int userId, int programId);
 // Task #9
 void os_turnOffProgram(os_t *os, int programId);
 // Task #10
-program_t *os_getActivePrograms(os_t *os);
+program_t **os_getActivePrograms(os_t *os);
+int get_userId(user_t * user);

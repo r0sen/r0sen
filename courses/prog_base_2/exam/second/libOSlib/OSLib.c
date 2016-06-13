@@ -48,6 +48,7 @@ void user_delete(user_t *user)
 }
 void user_print(user_t *user)
 {
+
     printf("%d: %s\n", user->id, user->name);
     if (user->isLoggedIn == 1)
         printf("User is logged in.\n");
@@ -97,7 +98,7 @@ int os_getUsersCount(const os_t *os)
     }
     return (usersCount);
 }
-user_t *getUsersList(const os_t *os)
+user_t **os_getUsersList(os_t *os)
 {
     return (os->users);
 }
@@ -134,12 +135,12 @@ void os_deleteUser(os_t *os, int userId)
 // Task #4
 void os_logUserIn(os_t *os, int userId)
 {
-    for (int i = 0; i < list_getSize(os->users); i++)
+    for (int i = 0; i < USERS_MAX_COUNT; i++)
     {
-        if (currentUser->id == userId)
+        if (os->users[i]->id == userId)
         {
-            currentUser->isLoggedIn = 1;
-            printf("User %s logged in.\n", currentUser->name);
+            os->users[i]->isLoggedIn = 1;
+            printf("User %s logged in.\n", os->users[i]->name);
             return;
         }
     }
@@ -149,13 +150,12 @@ void os_logUserIn(os_t *os, int userId)
 // Task #5
 void os_logUserOut(os_t *os, int userId)
 {
-    for (int i = 0; i < list_getSize(os->users); i++)
+    for (int i = 0; i < USERS_MAX_COUNT; i++)
     {
-        user_t *currentUser = (user_t *)list_getNodeValueByIndex(os->users, i);
-        if (currentUser->id == userId)
+        if (os->users[i]->id == userId)
         {
-            currentUser->isLoggedIn = 0;
-            printf("User %s logged out.\n", currentUser->name);
+            os->users[i]->isLoggedIn = 0;
+            printf("User %s logged out.\n", os->users[i]->name);
             return;
         }
     }
@@ -165,21 +165,25 @@ void os_logUserOut(os_t *os, int userId)
 // Task #6
 int os_getActiveUsersCount(const os_t *os)
 {
-    list_t *activeUsers = os_getActiveUsersList(os);
-    int activeUsersCount = list_getSize(activeUsers);
-    // Don't forget to free allocated memory.
-    list_delete(activeUsers);
+    user_t **activeUsers = os_getActiveUsersList(os);
+    int activeUsersCount = 0;
+    for (int i = 0; i < USERS_MAX_COUNT; i++)
+    {
+        if (activeUsers[i]->isLoggedIn == 1)
+            activeUsersCount++;
+    }
     return (activeUsersCount);
 }
-list_t *os_getActiveUsersList(const os_t *os)
+user_t **os_getActiveUsersList(const os_t *os)
 {
-    list_t *activeUsers = list_new();
-    for (int i = 0; i < list_getSize(os->users); i++)
+    user_t *activeUsers[USERS_MAX_COUNT];
+    for (int i = 0; i < USERS_MAX_COUNT; i++)
+        activeUsers[i] = user_new("noname");
+    for (int i = 0; i < USERS_MAX_COUNT; i++)
     {
-        user_t *currentUser = (user_t *)list_getNodeValueByIndex(os->users, i);
-        if (currentUser->isLoggedIn == 1)
+        if (os->users[i]->isLoggedIn == 1)
         {
-            list_insertLast(activeUsers, (void *)currentUser);
+            activeUsers[i] = os->users[i];
         }
     }
     return (activeUsers);
@@ -188,9 +192,15 @@ list_t *os_getActiveUsersList(const os_t *os)
 // Task #7
 int os_getProgramsCount(const os_t *os)
 {
-    return (list_getSize(os->programs));
+    int programsAmount = 0;
+    for (int i = 0; i < PROGRAMS_MAX_COUNT; i++)
+    {
+        if (os->programs[i]->id != -1)
+            programsAmount++;
+    }
+    return (programsAmount);
 }
-list_t *os_getProgramsList(const os_t *os)
+program_t **os_getProgramsList(os_t *os)
 {
     return (os->programs);
 }
@@ -198,20 +208,19 @@ list_t *os_getProgramsList(const os_t *os)
 // Task #8
 void os_turnOnProgram(os_t *os, int userId, int programId)
 {
-    for (int i = 0; i < list_getSize(os->programs); i++)
+    for (int i = 0; i < PROGRAMS_MAX_COUNT; i++)
     {
-        program_t *currentProgram = (program_t *)list_getNodeValueByIndex(os->programs, i);
-        if (currentProgram->id == programId)
+        if (os->programs[i]->id == programId)
         {
             // Check if this program isn't turned on by another user.
-            if (currentProgram->userId != userId)
+            if (os->programs[i]->userId != userId)
             {
-                currentProgram->userId = userId;
+                os->programs[i]->userId = userId;
                 return;
             }
             else
             {
-                printf("Program %s is turned on by user with id %d!\n", currentProgram->name, userId);
+                printf("Program %s is turned on by user with id %d!\n", os->programs[i]->name, userId);
                 return;
             }
         }
@@ -222,12 +231,11 @@ void os_turnOnProgram(os_t *os, int userId, int programId)
 // Task #9
 void os_turnOffProgram(os_t *os, int programId)
 {
-    for (int i = 0; i < list_getSize(os->programs); i++)
+    for (int i = 0; i < PROGRAMS_MAX_COUNT; i++)
     {
-        program_t *currentProgram = (program_t *)list_getNodeValueByIndex(os->programs, i);
-        if (currentProgram->id == programId)
+        if (os->programs[i]->id == programId)
         {
-            currentProgram->userId = -1;
+            os->programs[i]->userId = -1;
             return;
         }
     }
@@ -235,16 +243,25 @@ void os_turnOffProgram(os_t *os, int programId)
 }
 
 // Task #10
-list_t *os_getActivePrograms(os_t *os)
+program_t **os_getActivePrograms(os_t *os)
 {
-    list_t *activeProgramsList = list_new();
-    for (int i = 0; i < list_getSize(os->programs); i++)
+    program_t *activeProgramsList[PROGRAMS_MAX_COUNT];
+    for (int i = 0; i < PROGRAMS_MAX_COUNT; i++)
     {
-        program_t *currentProgram = (program_t *)list_getNodeValueByIndex(os->programs, i);
-        if (currentProgram->userId != -1)
+        activeProgramsList[i] = program_new("noname");
+    }
+    for (int i = 0; i < PROGRAMS_MAX_COUNT; i++)
+    {
+        if (os->programs[i]->userId != -1)
         {
-            list_insertLast(activeProgramsList, currentProgram);
+            activeProgramsList[i] = os->programs[i];
         }
     }
     return (activeProgramsList);
+}
+int get_userId(user_t * user)
+{
+    if(user->id != -1)
+    return user->id;
+    else return -128;
 }

@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1465815327 source:c:\users\Администратор\desktop\ОП\perezdach\second\liboslib\oslib.c
+	<stdlib.h>
+	<stdio.h>
+	<strings.h>
+	"OSlib.h"
+
+1465815342 c:\users\Администратор\desktop\ОП\perezdach\second\liboslib\oslib.h
+

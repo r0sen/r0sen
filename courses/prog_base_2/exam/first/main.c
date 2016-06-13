@@ -1,42 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <ctype.h>
+#include <windows.h>
 #include <stdlib.h>  // !
 #include <stdarg.h>  // !
 #include <stddef.h>  // !
 #include <setjmp.h>  // !
-
+#include <cmocka_pbc.h>
 #include <cmocka.h>
 
-//#include "stack.h"
 
-// unit-test function
 
-int function(char *string, int syst)
+
+int checkNumberBase(char *numberInString, int base)
 {
-int maxSymb = 0;
-      char str[] = "123";
-      char *buf[100];
-        printf("!");
-
-      strcpy(buf,string);
-  //char key[] = "aeiou";
-  printf("!");
-for(int i = 0; i < strlen(&buf); i++)
-{
-    printf("!");
-
-    for(int j = 0; j < strlen(&str); j++){
-              printf("!");
-
-        if((buf[i]==str[i] )&& (j>=maxSymb))
-        maxSymb = j;
-        }
-}
-printf("\n%c", str[maxSymb]);
-return 0;
+return (strtol(numberInString, NULL, base) != 0);
 }
 
-int main(void) {
-    char *string = "123";
-    int sys = 5;
-    function(string, sys);
 
+static void test_for_first(void **text){
+
+    assert_int_equal(checkNumberBase("123",4),1 );
+
+}
+
+static void test_for_second(void **text){
+
+    assert_int_equal(checkNumberBase("123",5),1 );
+
+}
+static void test_for_third(void **text){
+
+    assert_int_equal(checkNumberBase("12Adff233",25),1 );
+
+}
+
+static void test_for_fourth(void **text){
+
+    assert_int_equal(checkNumberBase("12dff233",1),0 );
+
+}
+
+int main()
+{
+const struct CMUnitTest tests[] =
+    {
+    cmocka_unit_test(test_for_first),
+    cmocka_unit_test(test_for_second),
+    cmocka_unit_test(test_for_third),
+    cmocka_unit_test(test_for_fourth),
+
+    };
+    return cmocka_run_group_tests(tests, NULL, NULL);
+//return 0;
 }

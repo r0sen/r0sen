@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1465815410 source:c:\users\Администратор\desktop\ОП\perezdach\second\testlib\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Oslib.h"
+
+1465815342 c:\users\Администратор\desktop\ОП\perezdach\second\testlib\oslib.h
+
